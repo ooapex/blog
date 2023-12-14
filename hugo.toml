@@ -2,9 +2,9 @@ baseURL = 'https://ooapex.com/'
 languageCode = 'zh-cn'
 title = 'OOAPEX'
 theme = 'hugo-ivy'
-ignoreFiles: ["\\.Rmd$", "\\.Rmarkdown$", "_cache$"]
-preserveTaxonomyNames: true
-footnotereturnlinkcontents: "↩"
+ignoreFiles = ["\\.Rmd$", "\\.Rmarkdown$", "_cache$"]
+preserveTaxonomyNames = true
+footnotereturnlinkcontents = "↩"
 
 [permalinks]
   posts = "/posts/:year/:month/:slug/"
