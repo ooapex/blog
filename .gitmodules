@@ -1,0 +1,3 @@
+[submodule "themes/ivy"]
+	path = themes/ivy
+	url = git@github.com:ooapex/hugo-ivy.git
