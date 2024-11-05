@@ -1,7 +1,7 @@
 baseURL = 'https://ooapex.com/'
 languageCode = 'zh-cn'
 title = 'OOAPEX'
-theme = 'hugo-ivy'
+theme = 'yinyang'
 ignoreFiles = ["\\.Rmd$", "\\.Rmarkdown$", "_cache$"]
 preserveTaxonomyNames = true
 footnotereturnlinkcontents = "↩"
