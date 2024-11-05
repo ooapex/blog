@@ -25,6 +25,7 @@ footnotereturnlinkcontents = "↩"
 
 [params]
   # description abou this website
+  headTitle = "OOAPEX"
   description = "内观则自知，自治则自明。自明则不争讼，安之若素，如如不动"
   footer = "&copy; [ooapex](https://ooapex.com) | since 2024"
   highlightjsCDN = "//cdn.bootcss.com"
