@@ -20,6 +20,7 @@ tabWidth = 2
   # description abou this website
   headTitle = "OOAPEX"
   description = "内观则自知，自治则自明。自明则不争讼，安之若素，如如不动"
+  staticPrefix = "https://cdn.jsdelivr.net/gh/ooapex/blog" 
 
 [[params.author]]
 homepage = "https://ooapex.com/"
