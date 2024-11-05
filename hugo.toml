@@ -5,6 +5,17 @@ theme = 'yinyang'
 canonifyURLs = false
 enableRobotsTXT = true
 
+[markup]
+[markup.goldmark]
+[markup.goldmark.renderer]
+unsafe = true
+[markup.highlight]
+guessSyntax = true
+noClasses = true
+style = "tango"
+tabWidth = 2
+
+
 [params]
   # description abou this website
   headTitle = "OOAPEX"
