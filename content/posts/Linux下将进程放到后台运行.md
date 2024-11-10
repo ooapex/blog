@@ -1,8 +1,9 @@
 ---
-Date: '2021-08-30'
+Date: 2021-08-30
 Draft: false
-Categories: ['Tech']
-Title: WordPress 博客搭建
+Categories:
+  - Tech
+Title: Linux下将进程放到后台运行
 ---
 
 # Linux 下将进程放到后台运行

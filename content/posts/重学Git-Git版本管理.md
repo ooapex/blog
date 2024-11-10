@@ -1,8 +1,9 @@
 ---
-Date: '2021-08-30'
+Date: 2021-08-30
 Draft: false
-Categories: ['Tech']
-Title: WordPress 博客搭建
+Categories:
+  - Tech
+Title: 重学Git-Git版本管理
 ---
 
 # 版本回退

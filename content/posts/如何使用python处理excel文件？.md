@@ -1,8 +1,9 @@
 ---
-Date: '2021-09-21'
+Date: 2021-09-21
 Draft: false
-Categories: ['Tech']
-Title: WordPress 博客搭建
+Categories:
+  - Tech
+Title: 如何使用python处理excel文件？
 ---
 
 [Working with Excel Files in Python](http://www.python-excel.org/)

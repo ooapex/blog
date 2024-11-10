@@ -1,8 +1,9 @@
 ---
-Date: '2021-09-10'
+Date: 2021-09-10
 Draft: false
-Categories: ['Tech']
-Title: WordPress 博客搭建
+Categories:
+  - Tech
+Title: 阿里云云效devops免费啦
 ---
 
 # 阿里云云效 devops 免费啦

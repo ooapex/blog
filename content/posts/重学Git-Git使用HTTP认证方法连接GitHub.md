@@ -1,8 +1,9 @@
 ---
-Date: '2021-08-24'
+Date: 2021-08-24
 Draft: false
-Categories: ['Tech']
-Title: WordPress 博客搭建
+Categories:
+  - Tech
+Title: 重学Git-Git使用HTTP认证方法连接GitHub
 ---
 
 # Git 配置

@@ -1,8 +1,9 @@
 ---
-Date: '2021-08-05'
+Date: 2021-08-05
 Draft: false
-Categories: ['Tech']
-Title: WordPress 博客搭建
+Categories:
+  - Tech
+Title: CloudFlare解析域名到HerokuApp
 ---
 
 # 前言

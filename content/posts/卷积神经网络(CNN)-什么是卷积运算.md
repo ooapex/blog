@@ -1,8 +1,9 @@
 ---
-Date: '2021-08-05'
+Date: 2021-08-05
 Draft: false
-Categories: ['Tech']
-Title: WordPress 博客搭建
+Categories:
+  - Tech
+Title: 卷积神经网络(CNN)-什么是卷积运算
 ---
 # 卷积计算的来源
 

@@ -1,8 +1,9 @@
 ---
-Date: '2021-08-30'
+Date: 2021-08-30
 Draft: false
-Categories: ['Tech']
-Title: WordPress 博客搭建
+Categories:
+  - Tech
+Title: 重学Git-Git标签管理
 ---
 
 每个标签都是跟随着每个 commit 的，commit 后可以给本次提交打上标签。

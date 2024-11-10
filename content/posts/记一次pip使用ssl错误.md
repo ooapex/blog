@@ -1,8 +1,9 @@
 ---
-Date: '2021-09-10'
+Date: 2021-09-10
 Draft: false
-Categories: ['Tech']
-Title: WordPress 博客搭建
+Categories:
+  - Tech
+Title: 记一次pip使用ssl错误
 ---
 
 ## 错误信息

@@ -1,8 +1,9 @@
 ---
-Date: '2021-08-03'
+Date: 2021-08-03
 Draft: false
-Categories: ['Tech']
-Title: WordPress 博客搭建
+Categories:
+  - Tech
+Title: Markdown写作个人图床配置-Gitee，SM.MS
 ---
 
 # 前言

@@ -1,8 +1,9 @@
 ---
-Date: '2021-08-19'
+Date: 2021-08-19
 Draft: false
-Categories: ['Tech']
-Title: WordPress 博客搭建
+Categories:
+  - Tech
+Title: 如何用wordpress做一个舒心的博客-配置指南
 ---
 
 > 既然决定了写博客，那么拥有一个好看的、好用的前台页面，一个舒服的书写平台，至关重要。🙂

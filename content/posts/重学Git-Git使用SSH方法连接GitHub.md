@@ -1,8 +1,9 @@
 ---
-Date: '2021-08-30'
+Date: 2021-08-30
 Draft: false
-Categories: ['Tech']
-Title: WordPress 博客搭建
+Categories:
+  - Tech
+Title: 重学Git-Git使用SSH方法连接GitHub
 ---
 
 # Git 使用 SSH 方法连接 GitHub

@@ -1,8 +1,9 @@
 ---
-Date: '2021-08-09'
+Date: 2021-08-09
 Draft: false
-Categories: ['Tech']
-Title: WordPress 博客搭建
+Categories:
+  - Tech
+Title: Sharelist+Rclone挂载阿里云盘和onedrive的保姆级教程
 ---
 
 > 基于 sharelist，挂载阿里云盘，onedrive，google drive 等，搭建私人不限速网盘。**文章末尾有 microsoft 5 T 子号相送**

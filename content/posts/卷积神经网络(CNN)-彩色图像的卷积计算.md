@@ -1,8 +1,9 @@
 ---
-Date: '2021-08-17'
+Date: 2021-08-17
 Draft: false
-Categories: ['Tech']
-Title: WordPress 博客搭建
+Categories:
+  - Tech
+Title: 卷积神经网络(CNN)-彩色图像的卷积计算
 ---
 
 > 相关链接

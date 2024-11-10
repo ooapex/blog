@@ -1,8 +1,9 @@
 ---
-Date: '2021-08-24'
+Date: 2021-08-24
 Draft: false
-Categories: ['Tech']
-Title: WordPress 博客搭建
+Categories:
+  - Tech
+Title: 重学Git-Git远程仓库管理
 ---
 
 # 远程仓库
