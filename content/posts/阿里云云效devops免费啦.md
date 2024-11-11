@@ -49,15 +49,13 @@ Title: 阿里云云效devops免费啦
 1. 全流程在线完成，网速好，效率高，再也不会遇到 push 不上去，clone 不下来的窘境
 2. 代码提示真的香
 3. 代码在终端运行发布后有在线链接，前端全网可见，再也不用把项目部署到服务器别人才能看到效果了。
-![ide](https://raw.githubusercontent.com/flydzy/OSS/master/img/20210910163832.png)
-
 
 ### 知识库
 
 知识库其实也就是文档管理，是面向企业用户的。博主试用了一下，发现他的 markdown 编辑器还是真的挺好用的，优雅的动画，舒服的目录，以及优雅的团队协作方式，让团队之间写文档变得没有那么冗余和难受。
-![知识库类型](https://gitee.com/agcl/oss/raw/master/img/20210910155705.png)
+![知识库类型](https://image.ooapex.com/images/20210910155705.png)
 
-![write](https://gitee.com/agcl/oss/raw/master/img/20210910160210.png)
+![write](https://image.ooapex.com/images/20210910160210.png)
 
 ### 制品仓库
 
@@ -69,25 +67,25 @@ Title: 阿里云云效devops免费啦
 
 制品仓库可以方便的衔接流水线，免费的流水线让我们可以方便的打包发布我们 release 的代码。
 
-![res](https://gitee.com/agcl/oss/raw/master/img/20210910160746.png)
+![res](https://image.ooapex.com/images/20210910160746.png)
 
 ### 代码管理
 
 代码管理模块可以直接导入 github 的代码，进行代码的阅读，代码的阅读和高亮也很优雅。其实就跟 github 新出的 dev 一样，但是阿里云是国内的，访问快。而且它还**可以直接打开 webIDE**，要知道巨硬 (Microsoft) 也在做这个功能，叫做 `codespace`，目前还在测试阶段，没有对广大的白嫖群众开发，很不错。
 
-![code](https://gitee.com/agcl/oss/raw/master/img/20210910161318.png)
+![code](https://image.ooapex.com/images/20210910161318.png)
 
 ### 测试管理
 
 这一听就是企业软件开发的功能，可以新建测试用例，对代码流程进行测试，非专业人员，用的不多，各位测试人员自行挖掘。
 
-![test](https://gitee.com/agcl/oss/raw/master/img/20210910161736.png)
+![test](https://image.ooapex.com/images/20210910161736.png)
 
 ### 流水线
 
 流水线就是将你的代码开发部署的过程流程化。比如所我要发布一个 vue 项目，那么我首先需要找到对应的项目，打包，将打包的资源放到服务器上，启动服务器上的 nginx 等服务器，然后就可以访问了。而本流水线将各个流程都可视化的展示出来，提供了许多的样例展示于部署资源，操作更加的方便简洁。
 
-![flow](https://gitee.com/agcl/oss/raw/master/img/20210910162058.png)
+![flow](https://image.ooapex.com/images/20210910162058.png)
 
 ### 效能洞察
 
@@ -99,4 +97,4 @@ Title: 阿里云云效devops免费啦
 
 目前个人用户还是可以免费的体验这一项功能。
 
-![xiaoneng](https://gitee.com/agcl/oss/raw/master/img/20210910162424.png)
+![xiaoneng](https://image.ooapex.com/images/20210910162424.png)

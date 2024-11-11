@@ -13,7 +13,7 @@ Title: 卷积神经网络(CNN)-什么是卷积运算
 - 容易出现过拟合
 
 为了解决这种类型的问题，不得不寻找新的计算方法来应对计算机视觉中的图像处理问题，也就有了**卷积运算**。  
-![常规神经网络的参数量](https://gitee.com/agcl/oss/raw/master/img/20210805155718.png)
+![常规神经网络的参数量](https://image.ooapex.com/images/20210805155718.png)
 
 # 卷积运算(2维卷积为例)
 
@@ -35,7 +35,7 @@ Title: 卷积神经网络(CNN)-什么是卷积运算
 
 1. 将卷积核与输入矩阵一一匹配，并做相乘相加运算，放到生成矩阵的对应位置
 
-![](https://gitee.com/agcl/oss/raw/master/img/20210805162731.png)
+![](https://image.ooapex.com/images/20210805162731.png)
 
 比如说上图，从左上角开始，将整个filter与前面的6x6的矩阵对应上，对应位置的数做相乘运算，然后相加起来，放到第一个位置。也就是  
 3*1+1*2+2*1+0*0+0*5+0*7+1*(-1)+8*(-1)+2*(-1)=-5  
@@ -43,15 +43,15 @@ Title: 卷积神经网络(CNN)-什么是卷积运算
 
 2. 将卷积核往右移动一个单位，继续做相同的运算，将运算得到的结果填入第二个空缺
 
-![](https://gitee.com/agcl/oss/raw/master/img/20210805163222.png)
+![](https://image.ooapex.com/images/20210805163222.png)
 
 3. 依次向后移动，当移动到最后石，回过头来往下移动一个格子，从左到右依次的做**卷积运算**
 
-![](https://gitee.com/agcl/oss/raw/master/img/20210805163414.png)
+![](https://image.ooapex.com/images/20210805163414.png)
 
 4. 直到后面的4x4的矩阵完全填满，那么一次卷积运算也就做完了。
 
-![](https://gitee.com/agcl/oss/raw/master/img/20210805163551.png)
+![](https://image.ooapex.com/images/20210805163551.png)
 
 ## 生成矩阵的维度确定
 
@@ -63,7 +63,7 @@ n2 = n1 - f + 1
 
 在进行卷积运算时，每次卷积过后，整个矩阵会变小，久而久之**整个矩阵会变得很小**。而且位于左上角的数字3只参与了一次卷积运算，而位于中间的数字2则进行了多次卷积运算，也就是影响多个卷积结果。这样会让图片的边缘信息得不到充分的挖掘与利用，于是就有了在输入矩阵周围拓展一些空白的像素点，使得边缘的信息能够充分利用。
 
-![](https://gitee.com/agcl/oss/raw/master/img/20210805172104.png)
+![](https://image.ooapex.com/images/20210805172104.png)
 
 上图中蓝色的部分就是添加的padding，这样可以保证，边缘的信息能够得到充分的利用，而且输出的矩阵的大小可以得到控制。更进一步，**可以通过控制padding的大小，使得输入矩阵和输入矩阵的大小维度是一致的。**
 
@@ -77,11 +77,11 @@ n2 = n1 - f + 1
 
 在前面的例子中，每次都是向右移动一个单位，而步长就是用来控制移动几个单位的。比如步长为2，那么在进行卷积运算时，当第一个矩阵部分运算完毕，就向右移动两格子，进行下一次运算。
 
-![](https://gitee.com/agcl/oss/raw/master/img/20210805173644.png)
+![](https://image.ooapex.com/images/20210805173644.png)
 
-![](https://gitee.com/agcl/oss/raw/master/img/20210805173715.png)
+![](https://image.ooapex.com/images/20210805173715.png)
 
-此时输出矩阵的维度可以用下面的公式计算![](https://gitee.com/agcl/oss/raw/master/img/20210805173917.png)
+此时输出矩阵的维度可以用下面的公式计算![](https://image.ooapex.com/images/20210805173917.png)
 
 # 总结
 

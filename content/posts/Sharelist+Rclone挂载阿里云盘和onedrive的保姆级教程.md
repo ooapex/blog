@@ -33,7 +33,7 @@ Title: Sharelist+Rclone挂载阿里云盘和onedrive的保姆级教程
 
 网址: https://pan.i52.me
 
-![](https://gitee.com/agcl/oss/raw/master/img/20210809162412.png)
+![](https://image.ooapex.com/images/20210809162412.png)
 
 # 宝塔面板安装
 
@@ -48,9 +48,9 @@ Fedora安装脚本: wget -O install.sh http://download.bt.cn/install/install_6.0
 
 然后就等着就行了，等到脚本执行完出现了访问链接和密码，点击链接进入浏览器，就能够看到宝塔的登录面板了，默认安装 lnmp 运行环境，主要要用的就是个 nginx，如果不安装这些环境也无伤大雅。
 
-![](https://gitee.com/agcl/oss/raw/master/img/20210809164103.png)
+![](https://image.ooapex.com/images/20210809164103.png)
 
-![](https://gitee.com/agcl/oss/raw/master/img/20210809164018.png)
+![](https://image.ooapex.com/images/20210809164018.png)
 
 
 
@@ -87,9 +87,9 @@ cd sharelist && bash install.sh
 + 如果你是腾讯云或阿里云等国内云服务器，首先需要去打开 `33001` 这个端口。
 + 接着，在宝塔的安全选项下，也要打开 33001 这个端口才行。
 
-![](https://gitee.com/agcl/oss/raw/master/img/20210809164509.png)
+![](https://image.ooapex.com/images/20210809164509.png)
 
-![](https://gitee.com/agcl/oss/raw/master/img/20210809164622.png)
+![](https://image.ooapex.com/images/20210809164622.png)
 
 这样，才能使用 ip: 33001 的格式来启动 sharelist。
 
@@ -97,13 +97,13 @@ cd sharelist && bash install.sh
 
 1. 在宝塔中新建一个站点，啥也不需要，纯静态的站点，不需要 PHP 等环境，不需要数据库。
 
-![](https://gitee.com/agcl/oss/raw/master/img/20210809165314.png)
+![](https://image.ooapex.com/images/20210809165314.png)
 
 2. 点击设置，设置反向代理。
 
-![](https://gitee.com/agcl/oss/raw/master/img/20210809165514.png)
+![](https://image.ooapex.com/images/20210809165514.png)
 
-3. <img src="https://gitee.com/agcl/oss/raw/master/img/20210809165638.png" style="zoom:80%;" />
+3. <img src="https://image.ooapex.com/images/20210809165638.png" style="zoom:80%;" />
 
 4. 添加完毕以后，点击配置文件，在域名的后面添加以下的配置。
 
@@ -123,13 +123,13 @@ cd sharelist && bash install.sh
 
 
 
-![](https://gitee.com/agcl/oss/raw/master/img/20210809170307.png)
+![](https://image.ooapex.com/images/20210809170307.png)
 
 好了，去解析你的域名到你的 vps 的 IP，就可以拿域名访问了。
 
 访问进去的基本设置就不多说，无非就是设置密码口令（自己记住），网盘名称等，首先网站会给一个样例，挂载本地硬盘。直接点击保存就能够进入 sharelist 前端的页面了。
 
-![](https://gitee.com/agcl/oss/raw/master/img/20210809175804.png)
+![](https://image.ooapex.com/images/20210809175804.png)
 
 ## 非官方安装方法-一键脚本（推荐）
 
@@ -145,11 +145,11 @@ bash -c "$(curl -sS https://www.cooluc.com/sharelist-install.sh)"
 
 在 sharelist 后台选择 `阿里云盘(beta)`, 名称随便填，然后点击保存，然后进入主页。
 
-![](https://gitee.com/agcl/oss/raw/master/img/20210809180736.png)
+![](https://image.ooapex.com/images/20210809180736.png)
 
 主页会出现刚才挂载的阿里云网盘，点击目录完成一些基本配置。
 
-![](https://gitee.com/agcl/oss/raw/master/img/20210809180805.png)
+![](https://image.ooapex.com/images/20210809180805.png)
 
 ## 获取阿里云盘 token
 
@@ -159,7 +159,7 @@ bash -c "$(curl -sS https://www.cooluc.com/sharelist-install.sh)"
 
 2、进入 [token解码](https://media.cooluc.com/decode_token/) 粘贴响应数据，点击解码，复制弹出的 token，粘贴到 sharelist 的 token处
 
-感谢@ [博主的](https://www.cooluc.com/) 的解码工具![](https://gitee.com/agcl/oss/raw/master/img/20210809181106.png)
+感谢@ [博主的](https://www.cooluc.com/) 的解码工具![](https://image.ooapex.com/images/20210809181106.png)
 
 
 
@@ -201,27 +201,27 @@ OD API 方式挂载的 onedrive，可以上传下载预览，而且不会走服�
 
 指定路径，这里指定的是 a，那么在 microsoft 的后台，到时候指定的也只能是 a, 设置好后台之后，点击保存，回到前端，点击 a 目录。
 
-![](https://gitee.com/agcl/oss/raw/master/img/20210809210634.png)
+![](https://image.ooapex.com/images/20210809210634.png)
 
 点击 azure 管理后台，然后注册应用。
 
-![](https://gitee.com/agcl/oss/raw/master/img/20210809210437.png)
+![](https://image.ooapex.com/images/20210809210437.png)
 
 注册应用的配置如下：
 
-![](https://gitee.com/agcl/oss/raw/master/img/20210809210902.png)
+![](https://image.ooapex.com/images/20210809210902.png)
 
 注册完后会跳转到下一个界面，然后就需要获取 app id 和 app_secret. 前者的获取很容易
 
-![](https://gitee.com/agcl/oss/raw/master/img/20210809211026.png)
+![](https://image.ooapex.com/images/20210809211026.png)
 
 后者的获取需要进入`证书和密码，生成密钥才能行。`
 
-![](https://gitee.com/agcl/oss/raw/master/img/20210809211205.png)
+![](https://image.ooapex.com/images/20210809211205.png)
 
 复制下面的密钥，结合上面的 app_id，填入上面的 sharelist 认证页面中，一直点击下一步，就成啦。
 
-![](https://gitee.com/agcl/oss/raw/master/img/20210809211243.png)
+![](https://image.ooapex.com/images/20210809211243.png)
 
 刷新自己的云盘，再次点击进入 a 目录，就能够看到自己已经挂载好的 onedrive 了。
 
@@ -239,7 +239,7 @@ OD API 方式挂载的 onedrive，可以上传下载预览，而且不会走服�
 
 然后进入 sharelist 后台页面，添加新的挂载源，操作跟挂载阿里云类似。
 
-![](https://gitee.com/agcl/oss/raw/master/img/20210809182609.png)
+![](https://image.ooapex.com/images/20210809182609.png)
 
 然后就可以看到你的 onedrive 了，可以点击右上角的目录上传和下载文件，十分的简单，而且，不走服务器的流量，所有就算是 vps 也不用怕。
 

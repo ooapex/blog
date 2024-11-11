@@ -29,7 +29,7 @@ Title: 如何用wordpress做一个舒心的博客-配置指南
 
 Corepress 是某位大佬开发的一款适合极客的主题，体积小，有好看的小工具、自带 SEO 等优秀的特点，使用体验很不错。
 
-![](https://gitee.com/agcl/oss/raw/master/img/20210818202355.png)
+![](https://image.ooapex.com/images/20210818202355.png)
 
 更多的详细信息，下载和安装都可以去[官网](https://www.lovestu.com/corepress.html)
 
@@ -47,7 +47,7 @@ Corepress 是某位大佬开发的一款适合极客的主题，体积小，有�
 
 当然，作为一个科研人员，想要写一些包含数学公式的博客时，wordpress 的编辑器就成了噩梦。几乎所有的 wordpress 中的 markdown 编辑器插件，都不支持使用数学公式，这款也就并不例外。
 
-![](https://gitee.com/agcl/oss/raw/master/img/20210818203650.png)
+![](https://image.ooapex.com/images/20210818203650.png)
 
 ## 备份插件-WPvivid Backup
 
@@ -61,7 +61,7 @@ Corepress 是某位大佬开发的一款适合极客的主题，体积小，有�
 
 于是还真给我找到了，就是**WPvivid Backup**。
 
-![](https://gitee.com/agcl/oss/raw/master/img/20210818205036.png)
+![](https://image.ooapex.com/images/20210818205036.png)
 
 支持自己手动备份，也支持自己设置时间自动备份，可以备份到本地，也可以经过简单的认证，将自己的数据和文件备份到想要的云服务商，甚至可以多端备份，当然，这款备份软件的高级功能是需要付费的，免费版本只能保存三个备份记录，当然，我觉得够用啦。
 
@@ -75,13 +75,13 @@ Corepress 有一个好处，就是在主页会显示每篇文章的评论总数�
 
 反正就是很好用，最终会在首页的文章展示上加上一个小👀，很舒心。
 
-![](https://gitee.com/agcl/oss/raw/master/img/20210818210059.png)
+![](https://image.ooapex.com/images/20210818210059.png)
 
 ## 评论插件-Comment Reply Email Notification
 
 在 wordpress 的设置里，可以设置当别人评论我们的博客时，发邮件通知我们。然而当我兴致冲冲的打开这个开关时，发现并没有提醒我我的博客有了新的评论。究其原因，是我的主机并不支持发送邮件（或者我没倒腾明白），于是怎么办啊，只能设置 STMP 发信了。诶巧了，这次的发信不需要寻找插件了，Corepress 这款主题帮我们集成了 STMP 发信功能的配置。
 
-![](https://gitee.com/agcl/oss/raw/master/img/20210818210722.png)
+![](https://image.ooapex.com/images/20210818210722.png)
 
 那这下好了，别人给我们的文章评论有了邮件提醒，但是我给别人回复，别人也不知道。选择 wordpress，就是想拥有自己的读者群体，而不是读完了就走了，再也不见了。所以，评论的回复或者讨论，我觉得还是让对方收到邮件通知更好，于是就找到了**Comment Reply Email Notification**这款插件，它具有以下特点：
 
@@ -89,7 +89,7 @@ Corepress 有一个好处，就是在主页会显示每篇文章的评论总数�
 + 支持自定义隐私政策
 + 支持显示 GDPR 复选框（是啥我也不知道）
 
-![](https://gitee.com/agcl/oss/raw/master/img/20210818211208.png)
+![](https://image.ooapex.com/images/20210818211208.png)
 
 这样，设置默认勾选这个选项，大部分的读者留言时应该都不会取消这个按钮，所以，当你回复读者的留言时，会有邮件通知到读者，真不错。
 
@@ -119,7 +119,7 @@ Corepress 有一个好处，就是在主页会显示每篇文章的评论总数�
 
 这仅仅是免费版的内容，但是我觉得也够用了。尤其是对我一个使用外部图床的博客，在 typera 上写代码，全是外部链接，要我一个个的加上以上属性，真是~~犯罪~~折磨，这个插件拯救了我和我的博客。
 
-![](https://gitee.com/agcl/oss/raw/master/img/20210819012958.png)
+![](https://image.ooapex.com/images/20210819012958.png)
 
 ## 订阅插件-**MailPoet 3**
 
@@ -137,7 +137,7 @@ Corepress 有一个好处，就是在主页会显示每篇文章的评论总数�
 
 这款插件也有免费的版本，功能受限制。但是，官方推出了，在 1000 个订阅者以内的博客，可以免费使用 `premium` 计划，良心。
 
-![](https://gitee.com/agcl/oss/raw/master/img/20210819014021.png)
+![](https://image.ooapex.com/images/20210819014021.png)
 
 ## SSL 插件-**Flexible SSL for CloudFlare**
 
@@ -147,7 +147,7 @@ Corepress 有一个好处，就是在主页会显示每篇文章的评论总数�
 
 那咋办呢，找插件啊，上面的这款的插件，就是为了解决这个问题。保证我们在使用 CF 的 SSL 时，不会出现资源无法访问的情况。
 
-![](https://gitee.com/agcl/oss/raw/master/img/20210819141204.png)
+![](https://image.ooapex.com/images/20210819141204.png)
 
 # SEO 优化
 

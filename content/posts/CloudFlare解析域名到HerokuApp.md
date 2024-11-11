@@ -12,11 +12,11 @@ Title: CloudFlare解析域名到HerokuApp
 
 不得不说，Cloudflare (以下简称 CF) 解析域名是真的方便，我把所有的域名都托管到 CF，然后可以在 CF 上统一管理，统一解析，用起来还是很舒服的。
 
-![](https://gitee.com/agcl/oss/raw/master/img/20210805100337.png)
+![](https://image.ooapex.com/images/20210805100337.png)
 
 CF 似乎还提供免费的 SSL（是啥我也不知道，后面会了解一下，写个博客），那样我们的网站就有了一个小🔒，能够防止攻击什么的。CloudFlare 能够完全托管我们的域名，免费的计划我觉得已经够我使用了，能够在看到域名的访问信息，缓存信息等，吹爆。
 
-![](https://gitee.com/agcl/oss/raw/master/img/20210805100643.png)
+![](https://image.ooapex.com/images/20210805100643.png)
 
 ## [Heroku](https://dashboard.heroku.com/) -云应用平台
 
@@ -40,11 +40,11 @@ Heroku 应用自带域名解析配置，提供两种方法将托管于 CF 的域
 
 一般新建好 App 以后，heroku 会自动给你分配一个域名，类似于 `appname.herokuapp.com`, 其中的 `appname` 就是你创建 app 时指定的名字，第一种解析方法就是再 cf 上的 dns 解析下，添加记录
 
-![](https://gitee.com/agcl/oss/raw/master/img/20210805100800.png)
+![](https://image.ooapex.com/images/20210805100800.png)
 
 添加以下记录：
 
-![](https://gitee.com/agcl/oss/raw/master/img/20210805100817.png)
+![](https://image.ooapex.com/images/20210805100817.png)
 
 ## 解析域名到 heroku 的 dns 服务器
 
@@ -52,21 +52,21 @@ Heroku 应用自带域名解析配置，提供两种方法将托管于 CF 的域
 
 1. 先找到 setting
 
-![](https://gitee.com/agcl/oss/raw/master/img/20210805100838.png)
+![](https://image.ooapex.com/images/20210805100838.png)
 2. 滑动到最下面会有 domain 配置选项卡
 
-    ![](https://gitee.com/agcl/oss/raw/master/img/20210805100914.png)
+    ![](https://image.ooapex.com/images/20210805100914.png)
 
 3. 添加自己要解析的域名
 
-    ![](https://gitee.com/agcl/oss/raw/master/img/20210805100932.png)
+    ![](https://image.ooapex.com/images/20210805100932.png)
 
 4. 配置好点击 next 就会生成 dns target，复制下来
 
-    ![](https://gitee.com/agcl/oss/raw/master/img/20210805100945.png)
+    ![](https://image.ooapex.com/images/20210805100945.png)
 5. 回到 CF，按照方式 1 一样的方法，设置为 CNAME，注意，自己域名的解析记录要跟 heroku 上配置的一致，比如说我在 heroku 上配置的是 blog. I 52. Me，那么在 cf 上，记录就应该天 blog，目标就填刚刚复制的 dns target。点击保存完工，稍等一会儿就可以看到自己的域名解析到对应的 app 了。
 
-    ![](https://gitee.com/agcl/oss/raw/master/img/20210805100959.png)
+    ![](https://image.ooapex.com/images/20210805100959.png)
 
 # 总结
 
