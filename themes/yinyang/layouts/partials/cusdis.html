@@ -4,12 +4,12 @@
 <div style="width: 35px; height: 3px; background-color: rgb(42,77,208); margin-top: 10px; border-radius: 10px;"></div>
 <br/>
 <div id="cusdis_thread"
-  data-host="https://cusdis.com"
-  data-app-id=<<data-app-id>>
-  data-page-id="{{ .File.UniqueID }}"
-  data-page-url="{{ .RelPermalink }}"
-  data-page-title="{{ .Title }}"
-></div>
+     data-host="https://cusdis.com"
+     data-app-id="{{ .Site.Params.cusdisAppId }}"
+     data-page-id="{{ .Permalink }}"
+     data-page-url="{{ .Permalink }}"
+     data-page-title="{{ .Title }}">
+</div>
 
 {{- $js := resources.GetRemote "https://cusdis.com/js/widget/lang/zh-cn.js" | js.Build (dict "minify" true) -}}
 <script type='text/javascript'>
