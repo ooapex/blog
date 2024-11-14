@@ -66,6 +66,12 @@
             {{ partial "disqus.html" . }}
           </div>
           {{ end }}
+
+          {{ if .Site.Params.cusdis }}
+          <div class="post-comments">
+            {{ partial "cusdis.html" . }}
+          </div>
+          {{ end }}
         {{ end }}
 
         {{ partial "footer.html" . }}
