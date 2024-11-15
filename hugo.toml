@@ -27,3 +27,7 @@ tabWidth = 2
 [[params.author]]
 homepage = "https://ooapex.com/"
 name = "Ishland"
+
+[[params.socials]]
+link = "/projects/"
+name = "Projects"

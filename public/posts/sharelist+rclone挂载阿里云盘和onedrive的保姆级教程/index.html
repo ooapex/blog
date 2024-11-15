@@ -1,0 +1,399 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+  <meta charset="utf-8" />
+  <meta name="generator" content="Hugo 0.138.0">
+
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="author" content="" />
+  <meta property="og:url" content="http://localhost:1313/posts/sharelist&#43;rclone%E6%8C%82%E8%BD%BD%E9%98%BF%E9%87%8C%E4%BA%91%E7%9B%98%E5%92%8Conedrive%E7%9A%84%E4%BF%9D%E5%A7%86%E7%BA%A7%E6%95%99%E7%A8%8B/" />
+  <link rel="canonical" href="http://localhost:1313/posts/sharelist&#43;rclone%E6%8C%82%E8%BD%BD%E9%98%BF%E9%87%8C%E4%BA%91%E7%9B%98%E5%92%8Conedrive%E7%9A%84%E4%BF%9D%E5%A7%86%E7%BA%A7%E6%95%99%E7%A8%8B/" /><link rel="dns-prefetch" href="https://cdn.jsdelivr.net/gh/ooapex/blog" /><link rel="alternate" type="application/atom+xml" href="http://localhost:1313/index.xml" title="OOAPEX">
+
+  <script type="application/ld+json">
+  {
+      "@context" : "http://schema.org",
+      "@type" : "BlogPosting",
+      "mainEntityOfPage": {
+           "@type": "WebPage",
+           "@id": "http:\/\/localhost:1313\/"
+      },
+      "articleSection" : "posts",
+      "name" : "Sharelist\u002bRclone挂载阿里云盘和onedrive的保姆级教程",
+      "headline" : "Sharelist\u002bRclone挂载阿里云盘和onedrive的保姆级教程",
+      "description" : " 基于 sharelist，挂载阿里云盘，onedrive，google drive 等，搭建私人不限速网盘。文章末尾有 microsoft 5 T 子号相送\n[toc]\n前言 自己平常看到有优惠活动，就申请了许多的网盘，有 onedrive，google drive，aliyunpan，teambition，蓝奏云等。就挺多的，但是也没有好好的利用，单单是阿里云就能有 10 T 的空间。因为存在以下问题：\n每次要下载个文件什么的，都需要登录客户端，然后下载，也用不了我的 aria 2 或者 IDM，虽然速度确实是跑满的，但是这么多网盘，使用体验确实没有那么好。 而且，有时候想发一些文件给别人，一时间也找不到好的方式，只能通过 QQ 微信发送，很麻烦。 自己网盘的空间得不到充分的利用，闲置很多 于是乎，就有了拿这些网盘，挂载到一起，做一个大的网盘的想法。搜了网上的一些资料，有个很好用的软件 Rclone, 还有 sharelist, 前者可以将 onedrive、google drive、dropbox 等的挂载为本地磁盘，后者拥有设计精美的前端页面和后台管理系统，可拓展性强，搜寻资料，历经千难万险，终于摸索出了挂载这些网盘到前端页面的教程，使用方便，上传下载都很方便。\n本套教程包括了：\nsharelist 挂载阿里云盘 rclone 挂载 onedrive 到 linux 硬盘 sharelist 挂载本地硬盘 持续更新 最终效果：\n网址: https:\/\/pan.i52.me\n宝塔面板安装 其实，只要你足够熟悉 nginx 的相关配置命令，是不需要安装宝塔面板的。\nCentos安装脚本:yum install -y wget \u0026amp;\u0026amp; wget -O install.sh http:\/\/download.bt.cn\/install\/install_6.0.sh \u0026amp;\u0026amp; sh install.sh Ubuntu\/Deepin安装脚本: wget -O install.sh http:\/\/download.bt.cn\/install\/install-ubuntu_6.0.sh \u0026amp;\u0026amp; sudo bash install.sh Debian安装脚本: wget -O install.sh http:\/\/download.bt.cn\/install\/install-ubuntu_6.0.sh \u0026amp;\u0026amp; bash install.sh Fedora安装脚本: wget -O install.sh http:\/\/download.bt.cn\/install\/install_6.0.sh \u0026amp;\u0026amp; bash install.sh 然后就等着就行了，等到脚本执行完出现了访问链接和密码，点击链接进入浏览器，就能够看到宝塔的登录面板了，默认安装 lnmp 运行环境，主要要用的就是个 nginx，如果不安装这些环境也无伤大雅。\n",
+      "inLanguage" : "en-US",
+      "author" : "",
+      "creator" : "",
+      "publisher": "",
+      "accountablePerson" : "",
+      "copyrightHolder" : "",
+      "copyrightYear" : "2021",
+      "datePublished": "2021-08-09 00:00:00 \u002b0000 UTC",
+      "dateModified" : "2021-08-09 00:00:00 \u002b0000 UTC",
+      "url" : "http:\/\/localhost:1313\/posts\/sharelist\u002brclone%E6%8C%82%E8%BD%BD%E9%98%BF%E9%87%8C%E4%BA%91%E7%9B%98%E5%92%8Conedrive%E7%9A%84%E4%BF%9D%E5%A7%86%E7%BA%A7%E6%95%99%E7%A8%8B\/",
+      "keywords" : [  ]
+  }
+</script>
+<title>Sharelist&#43;Rclone挂载阿里云盘和onedrive的保姆级教程</title>
+  <meta property="og:title" content="Sharelist&#43;Rclone挂载阿里云盘和onedrive的保姆级教程" />
+  <meta property="og:type" content="article" />
+  <meta property="og:description" content=" 基于 sharelist，挂载阿里云盘，onedrive，google drive 等，搭建私人不限速网盘。文章末尾有 microsoft 5 T 子号相送
+[toc]
+前言 自己平常看到有优惠活动，就申请了许多的网盘，有 onedrive，google drive，aliyunpan，teambition，蓝奏云等。就挺多的，但是也没有好好的利用，单单是阿里云就能有 10 T 的空间。因为存在以下问题：
+每次要下载个文件什么的，都需要登录客户端，然后下载，也用不了我的 aria 2 或者 IDM，虽然速度确实是跑满的，但是这么多网盘，使用体验确实没有那么好。 而且，有时候想发一些文件给别人，一时间也找不到好的方式，只能通过 QQ 微信发送，很麻烦。 自己网盘的空间得不到充分的利用，闲置很多 于是乎，就有了拿这些网盘，挂载到一起，做一个大的网盘的想法。搜了网上的一些资料，有个很好用的软件 Rclone, 还有 sharelist, 前者可以将 onedrive、google drive、dropbox 等的挂载为本地磁盘，后者拥有设计精美的前端页面和后台管理系统，可拓展性强，搜寻资料，历经千难万险，终于摸索出了挂载这些网盘到前端页面的教程，使用方便，上传下载都很方便。
+本套教程包括了：
+sharelist 挂载阿里云盘 rclone 挂载 onedrive 到 linux 硬盘 sharelist 挂载本地硬盘 持续更新 最终效果：
+网址: https://pan.i52.me
+宝塔面板安装 其实，只要你足够熟悉 nginx 的相关配置命令，是不需要安装宝塔面板的。
+Centos安装脚本:yum install -y wget &amp;&amp; wget -O install.sh http://download.bt.cn/install/install_6.0.sh &amp;&amp; sh install.sh Ubuntu/Deepin安装脚本: wget -O install.sh http://download.bt.cn/install/install-ubuntu_6.0.sh &amp;&amp; sudo bash install.sh Debian安装脚本: wget -O install.sh http://download.bt.cn/install/install-ubuntu_6.0.sh &amp;&amp; bash install.sh Fedora安装脚本: wget -O install.sh http://download.bt.cn/install/install_6.0.sh &amp;&amp; bash install.sh 然后就等着就行了，等到脚本执行完出现了访问链接和密码，点击链接进入浏览器，就能够看到宝塔的登录面板了，默认安装 lnmp 运行环境，主要要用的就是个 nginx，如果不安装这些环境也无伤大雅。
+" />
+  <meta name="description" content=" 基于 sharelist，挂载阿里云盘，onedrive，google drive 等，搭建私人不限速网盘。文章末尾有 microsoft 5 T 子号相送
+[toc]
+前言 自己平常看到有优惠活动，就申请了许多的网盘，有 onedrive，google drive，aliyunpan，teambition，蓝奏云等。就挺多的，但是也没有好好的利用，单单是阿里云就能有 10 T 的空间。因为存在以下问题：
+每次要下载个文件什么的，都需要登录客户端，然后下载，也用不了我的 aria 2 或者 IDM，虽然速度确实是跑满的，但是这么多网盘，使用体验确实没有那么好。 而且，有时候想发一些文件给别人，一时间也找不到好的方式，只能通过 QQ 微信发送，很麻烦。 自己网盘的空间得不到充分的利用，闲置很多 于是乎，就有了拿这些网盘，挂载到一起，做一个大的网盘的想法。搜了网上的一些资料，有个很好用的软件 Rclone, 还有 sharelist, 前者可以将 onedrive、google drive、dropbox 等的挂载为本地磁盘，后者拥有设计精美的前端页面和后台管理系统，可拓展性强，搜寻资料，历经千难万险，终于摸索出了挂载这些网盘到前端页面的教程，使用方便，上传下载都很方便。
+本套教程包括了：
+sharelist 挂载阿里云盘 rclone 挂载 onedrive 到 linux 硬盘 sharelist 挂载本地硬盘 持续更新 最终效果：
+网址: https://pan.i52.me
+宝塔面板安装 其实，只要你足够熟悉 nginx 的相关配置命令，是不需要安装宝塔面板的。
+Centos安装脚本:yum install -y wget &amp;&amp; wget -O install.sh http://download.bt.cn/install/install_6.0.sh &amp;&amp; sh install.sh Ubuntu/Deepin安装脚本: wget -O install.sh http://download.bt.cn/install/install-ubuntu_6.0.sh &amp;&amp; sudo bash install.sh Debian安装脚本: wget -O install.sh http://download.bt.cn/install/install-ubuntu_6.0.sh &amp;&amp; bash install.sh Fedora安装脚本: wget -O install.sh http://download.bt.cn/install/install_6.0.sh &amp;&amp; bash install.sh 然后就等着就行了，等到脚本执行完出现了访问链接和密码，点击链接进入浏览器，就能够看到宝塔的登录面板了，默认安装 lnmp 运行环境，主要要用的就是个 nginx，如果不安装这些环境也无伤大雅。
+" />
+  <meta property="og:locale" content="zh-cn" /><meta property="og:image" content="" />
+  
+
+  
+    <style>body{font-family:bree serif,sans-serif;-webkit-font-smoothing:antialiased;margin:0 20px}article{max-width:800px;margin-left:auto;margin-right:auto}a{color:#000;text-decoration:none}a:hover{font-weight:600;text-decoration:underline}.post-ads{margin:50px 0}.markdown-body{font-size:18px;max-width:100%}.markdown-body a{text-decoration:underline;text-decoration-color:#000}.markdown-body blockquote{margin:0;padding:0 1em;color:#57606a;border-left:.25em solid #d0d7de}.markdown-body pre{padding:16px;overflow:auto;border-radius:10px}.markdown-body code{padding:.2em .4em;font-size:85%;background-color:#f6f8fa;border-radius:6px}.markdown-body pre>code{padding:0;font-size:100%;background-color:inherit;border:0}.Chinese .markdown-body{line-height:200%}.site-date-catalog{font-size:2rem}.header-title{font-size:2rem;font-weight:700;margin-top:32px;font-family:bungee shade,sans-serif}.header-title a{text-decoration:none}.header-subtitle{color:#666}.header-items{margin:10px 0}.header-item{margin:0 5px}.header-line{width:100%;border-width:2px;border-color:#482936;border-style:solid none none none}.lang-switch{font-weight:600}#posts-list{min-height:600px}.posts-line{font-size:1.2rem;margin:12px 0}.posts-categories{font-size:.8rem;margin:auto;text-align:center}.posts-category{padding:3px 0;border:#000 2px solid;border-radius:5px}.site-footer{margin-top:50px}.site-footer-item{margin-right:12px}.post-header{margin-bottom:50px}.post-title{font-size:2rem;font-weight:600}.post-tags{display:inline;font-weight:600;padding:2px 5px;margin-right:6px;border:#000 2px solid;border-radius:5px}.post-date{font-weight:800;font-style:italic}.post-author{float:right;font-weight:600}.page-content{min-height:60%}.post-content{margin-bottom:50px}.post-content p{hyphens:auto;line-height:1.8;text-justify:ideographic;margin-bottom:1em}.post-content img{max-width:100%;display:block;margin-right:auto;margin-top:6px}.post-content .post-gallery{display:flex;flex-wrap:wrap;gap:6px}.post-content .post-gallery img{margin-right:auto;margin-top:auto;width:calc(50% - 3px)}.related-content{border-width:3px;border-style:solid;border-color:#000;padding:0 10px;margin-bottom:50px;margin-top:100px}.related-content li{margin:5px 0}.taxonomy-term{font-size:3rem}.gallery-img{text-align:center}.gallery-img span{text-align:center}.gallery-img-desc{font-size:.8em;font-weight:800}#disqus_thread{position:relative}#disqus_thread:after{content:"";display:block;height:55px;width:100%;position:absolute;bottom:0;background:#fff}@media screen and (max-width:600px){.header-title,.header-subtitle,.header-items{}.posts-line{font-size:16px}.markdown-body{font-size:16px}.post-title{font-size:2rem}.post-content p{letter-spacing:.05em}.post-content .post-gallery img{width:100%}}@media screen and (max-width:48em){.posts-category{display:none}}</style>
+  
+  
+    <style>.container,.container-fluid{margin-right:auto;margin-left:auto}.container-fluid{padding-right:2rem;padding-left:2rem}.row{box-sizing:border-box;display:-webkit-box;display:-ms-flexbox;display:flex;-webkit-box-flex:0;-ms-flex:0 1 auto;flex:initial;-webkit-box-orient:horizontal;-webkit-box-direction:normal;-ms-flex-direction:row;flex-direction:row;-ms-flex-wrap:wrap;flex-wrap:wrap;margin-right:-.5rem;margin-left:-.5rem}.row.reverse{-webkit-box-orient:horizontal;-webkit-box-direction:reverse;-ms-flex-direction:row-reverse;flex-direction:row-reverse}.col.reverse{-webkit-box-orient:vertical;-webkit-box-direction:reverse;-ms-flex-direction:column-reverse;flex-direction:column-reverse}.col-xs,.col-xs-1,.col-xs-10,.col-xs-11,.col-xs-12,.col-xs-2,.col-xs-3,.col-xs-4,.col-xs-5,.col-xs-6,.col-xs-7,.col-xs-8,.col-xs-9,.col-xs-offset-0,.col-xs-offset-1,.col-xs-offset-10,.col-xs-offset-11,.col-xs-offset-12,.col-xs-offset-2,.col-xs-offset-3,.col-xs-offset-4,.col-xs-offset-5,.col-xs-offset-6,.col-xs-offset-7,.col-xs-offset-8,.col-xs-offset-9{box-sizing:border-box;-webkit-box-flex:0;-ms-flex:0 0 auto;flex:none;padding-right:.5rem;padding-left:.5rem}.col-xs{-webkit-box-flex:1;-ms-flex-positive:1;flex-grow:1;-ms-flex-preferred-size:0;flex-basis:0;max-width:100%}.col-xs-1{-ms-flex-preferred-size:8.33333333%;flex-basis:8.33333333%;max-width:8.33333333%}.col-xs-2{-ms-flex-preferred-size:16.66666667%;flex-basis:16.66666667%;max-width:16.66666667%}.col-xs-3{-ms-flex-preferred-size:25%;flex-basis:25%;max-width:25%}.col-xs-4{-ms-flex-preferred-size:33.33333333%;flex-basis:33.33333333%;max-width:33.33333333%}.col-xs-5{-ms-flex-preferred-size:41.66666667%;flex-basis:41.66666667%;max-width:41.66666667%}.col-xs-6{-ms-flex-preferred-size:50%;flex-basis:50%;max-width:50%}.col-xs-7{-ms-flex-preferred-size:58.33333333%;flex-basis:58.33333333%;max-width:58.33333333%}.col-xs-8{-ms-flex-preferred-size:66.66666667%;flex-basis:66.66666667%;max-width:66.66666667%}.col-xs-9{-ms-flex-preferred-size:75%;flex-basis:75%;max-width:75%}.col-xs-10{-ms-flex-preferred-size:83.33333333%;flex-basis:83.33333333%;max-width:83.33333333%}.col-xs-11{-ms-flex-preferred-size:91.66666667%;flex-basis:91.66666667%;max-width:91.66666667%}.col-xs-12{-ms-flex-preferred-size:100%;flex-basis:100%;max-width:100%}.col-xs-offset-0{margin-left:0}.col-xs-offset-1{margin-left:8.33333333%}.col-xs-offset-2{margin-left:16.66666667%}.col-xs-offset-3{margin-left:25%}.col-xs-offset-4{margin-left:33.33333333%}.col-xs-offset-5{margin-left:41.66666667%}.col-xs-offset-6{margin-left:50%}.col-xs-offset-7{margin-left:58.33333333%}.col-xs-offset-8{margin-left:66.66666667%}.col-xs-offset-9{margin-left:75%}.col-xs-offset-10{margin-left:83.33333333%}.col-xs-offset-11{margin-left:91.66666667%}.start-xs{-webkit-box-pack:start;-ms-flex-pack:start;justify-content:flex-start;text-align:start}.center-xs{-webkit-box-pack:center;-ms-flex-pack:center;justify-content:center;text-align:center}.end-xs{-webkit-box-pack:end;-ms-flex-pack:end;justify-content:flex-end;text-align:end}.top-xs{-webkit-box-align:start;-ms-flex-align:start;align-items:flex-start}.middle-xs{-webkit-box-align:center;-ms-flex-align:center;align-items:center}.bottom-xs{-webkit-box-align:end;-ms-flex-align:end;align-items:flex-end}.around-xs{-ms-flex-pack:distribute;justify-content:space-around}.between-xs{-webkit-box-pack:justify;-ms-flex-pack:justify;justify-content:space-between}.first-xs{-webkit-box-ordinal-group:0;-ms-flex-order:-1;order:-1}.last-xs{-webkit-box-ordinal-group:2;-ms-flex-order:1;order:1}@media only screen and (min-width:48em){.container{width:49rem}.col-sm,.col-sm-1,.col-sm-10,.col-sm-11,.col-sm-12,.col-sm-2,.col-sm-3,.col-sm-4,.col-sm-5,.col-sm-6,.col-sm-7,.col-sm-8,.col-sm-9,.col-sm-offset-0,.col-sm-offset-1,.col-sm-offset-10,.col-sm-offset-11,.col-sm-offset-12,.col-sm-offset-2,.col-sm-offset-3,.col-sm-offset-4,.col-sm-offset-5,.col-sm-offset-6,.col-sm-offset-7,.col-sm-offset-8,.col-sm-offset-9{box-sizing:border-box;-webkit-box-flex:0;-ms-flex:0 0 auto;flex:none;padding-right:.5rem;padding-left:.5rem}.col-sm{-webkit-box-flex:1;-ms-flex-positive:1;flex-grow:1;-ms-flex-preferred-size:0;flex-basis:0;max-width:100%}.col-sm-1{-ms-flex-preferred-size:8.33333333%;flex-basis:8.33333333%;max-width:8.33333333%}.col-sm-2{-ms-flex-preferred-size:16.66666667%;flex-basis:16.66666667%;max-width:16.66666667%}.col-sm-3{-ms-flex-preferred-size:25%;flex-basis:25%;max-width:25%}.col-sm-4{-ms-flex-preferred-size:33.33333333%;flex-basis:33.33333333%;max-width:33.33333333%}.col-sm-5{-ms-flex-preferred-size:41.66666667%;flex-basis:41.66666667%;max-width:41.66666667%}.col-sm-6{-ms-flex-preferred-size:50%;flex-basis:50%;max-width:50%}.col-sm-7{-ms-flex-preferred-size:58.33333333%;flex-basis:58.33333333%;max-width:58.33333333%}.col-sm-8{-ms-flex-preferred-size:66.66666667%;flex-basis:66.66666667%;max-width:66.66666667%}.col-sm-9{-ms-flex-preferred-size:75%;flex-basis:75%;max-width:75%}.col-sm-10{-ms-flex-preferred-size:83.33333333%;flex-basis:83.33333333%;max-width:83.33333333%}.col-sm-11{-ms-flex-preferred-size:91.66666667%;flex-basis:91.66666667%;max-width:91.66666667%}.col-sm-12{-ms-flex-preferred-size:100%;flex-basis:100%;max-width:100%}.col-sm-offset-0{margin-left:0}.col-sm-offset-1{margin-left:8.33333333%}.col-sm-offset-2{margin-left:16.66666667%}.col-sm-offset-3{margin-left:25%}.col-sm-offset-4{margin-left:33.33333333%}.col-sm-offset-5{margin-left:41.66666667%}.col-sm-offset-6{margin-left:50%}.col-sm-offset-7{margin-left:58.33333333%}.col-sm-offset-8{margin-left:66.66666667%}.col-sm-offset-9{margin-left:75%}.col-sm-offset-10{margin-left:83.33333333%}.col-sm-offset-11{margin-left:91.66666667%}.start-sm{-webkit-box-pack:start;-ms-flex-pack:start;justify-content:flex-start;text-align:start}.center-sm{-webkit-box-pack:center;-ms-flex-pack:center;justify-content:center;text-align:center}.end-sm{-webkit-box-pack:end;-ms-flex-pack:end;justify-content:flex-end;text-align:end}.top-sm{-webkit-box-align:start;-ms-flex-align:start;align-items:flex-start}.middle-sm{-webkit-box-align:center;-ms-flex-align:center;align-items:center}.bottom-sm{-webkit-box-align:end;-ms-flex-align:end;align-items:flex-end}.around-sm{-ms-flex-pack:distribute;justify-content:space-around}.between-sm{-webkit-box-pack:justify;-ms-flex-pack:justify;justify-content:space-between}.first-sm{-webkit-box-ordinal-group:0;-ms-flex-order:-1;order:-1}.last-sm{-webkit-box-ordinal-group:2;-ms-flex-order:1;order:1}}@media only screen and (min-width:64em){.container{width:65rem}.col-md,.col-md-1,.col-md-10,.col-md-11,.col-md-12,.col-md-2,.col-md-3,.col-md-4,.col-md-5,.col-md-6,.col-md-7,.col-md-8,.col-md-9,.col-md-offset-0,.col-md-offset-1,.col-md-offset-10,.col-md-offset-11,.col-md-offset-12,.col-md-offset-2,.col-md-offset-3,.col-md-offset-4,.col-md-offset-5,.col-md-offset-6,.col-md-offset-7,.col-md-offset-8,.col-md-offset-9{box-sizing:border-box;-webkit-box-flex:0;-ms-flex:0 0 auto;flex:none;padding-right:.5rem;padding-left:.5rem}.col-md{-webkit-box-flex:1;-ms-flex-positive:1;flex-grow:1;-ms-flex-preferred-size:0;flex-basis:0;max-width:100%}.col-md-1{-ms-flex-preferred-size:8.33333333%;flex-basis:8.33333333%;max-width:8.33333333%}.col-md-2{-ms-flex-preferred-size:16.66666667%;flex-basis:16.66666667%;max-width:16.66666667%}.col-md-3{-ms-flex-preferred-size:25%;flex-basis:25%;max-width:25%}.col-md-4{-ms-flex-preferred-size:33.33333333%;flex-basis:33.33333333%;max-width:33.33333333%}.col-md-5{-ms-flex-preferred-size:41.66666667%;flex-basis:41.66666667%;max-width:41.66666667%}.col-md-6{-ms-flex-preferred-size:50%;flex-basis:50%;max-width:50%}.col-md-7{-ms-flex-preferred-size:58.33333333%;flex-basis:58.33333333%;max-width:58.33333333%}.col-md-8{-ms-flex-preferred-size:66.66666667%;flex-basis:66.66666667%;max-width:66.66666667%}.col-md-9{-ms-flex-preferred-size:75%;flex-basis:75%;max-width:75%}.col-md-10{-ms-flex-preferred-size:83.33333333%;flex-basis:83.33333333%;max-width:83.33333333%}.col-md-11{-ms-flex-preferred-size:91.66666667%;flex-basis:91.66666667%;max-width:91.66666667%}.col-md-12{-ms-flex-preferred-size:100%;flex-basis:100%;max-width:100%}.col-md-offset-0{margin-left:0}.col-md-offset-1{margin-left:8.33333333%}.col-md-offset-2{margin-left:16.66666667%}.col-md-offset-3{margin-left:25%}.col-md-offset-4{margin-left:33.33333333%}.col-md-offset-5{margin-left:41.66666667%}.col-md-offset-6{margin-left:50%}.col-md-offset-7{margin-left:58.33333333%}.col-md-offset-8{margin-left:66.66666667%}.col-md-offset-9{margin-left:75%}.col-md-offset-10{margin-left:83.33333333%}.col-md-offset-11{margin-left:91.66666667%}.start-md{-webkit-box-pack:start;-ms-flex-pack:start;justify-content:flex-start;text-align:start}.center-md{-webkit-box-pack:center;-ms-flex-pack:center;justify-content:center;text-align:center}.end-md{-webkit-box-pack:end;-ms-flex-pack:end;justify-content:flex-end;text-align:end}.top-md{-webkit-box-align:start;-ms-flex-align:start;align-items:flex-start}.middle-md{-webkit-box-align:center;-ms-flex-align:center;align-items:center}.bottom-md{-webkit-box-align:end;-ms-flex-align:end;align-items:flex-end}.around-md{-ms-flex-pack:distribute;justify-content:space-around}.between-md{-webkit-box-pack:justify;-ms-flex-pack:justify;justify-content:space-between}.first-md{-webkit-box-ordinal-group:0;-ms-flex-order:-1;order:-1}.last-md{-webkit-box-ordinal-group:2;-ms-flex-order:1;order:1}}@media only screen and (min-width:75em){.container{width:76rem}.col-lg,.col-lg-1,.col-lg-10,.col-lg-11,.col-lg-12,.col-lg-2,.col-lg-3,.col-lg-4,.col-lg-5,.col-lg-6,.col-lg-7,.col-lg-8,.col-lg-9,.col-lg-offset-0,.col-lg-offset-1,.col-lg-offset-10,.col-lg-offset-11,.col-lg-offset-12,.col-lg-offset-2,.col-lg-offset-3,.col-lg-offset-4,.col-lg-offset-5,.col-lg-offset-6,.col-lg-offset-7,.col-lg-offset-8,.col-lg-offset-9{box-sizing:border-box;-webkit-box-flex:0;-ms-flex:0 0 auto;flex:none;padding-right:.5rem;padding-left:.5rem}.col-lg{-webkit-box-flex:1;-ms-flex-positive:1;flex-grow:1;-ms-flex-preferred-size:0;flex-basis:0;max-width:100%}.col-lg-1{-ms-flex-preferred-size:8.33333333%;flex-basis:8.33333333%;max-width:8.33333333%}.col-lg-2{-ms-flex-preferred-size:16.66666667%;flex-basis:16.66666667%;max-width:16.66666667%}.col-lg-3{-ms-flex-preferred-size:25%;flex-basis:25%;max-width:25%}.col-lg-4{-ms-flex-preferred-size:33.33333333%;flex-basis:33.33333333%;max-width:33.33333333%}.col-lg-5{-ms-flex-preferred-size:41.66666667%;flex-basis:41.66666667%;max-width:41.66666667%}.col-lg-6{-ms-flex-preferred-size:50%;flex-basis:50%;max-width:50%}.col-lg-7{-ms-flex-preferred-size:58.33333333%;flex-basis:58.33333333%;max-width:58.33333333%}.col-lg-8{-ms-flex-preferred-size:66.66666667%;flex-basis:66.66666667%;max-width:66.66666667%}.col-lg-9{-ms-flex-preferred-size:75%;flex-basis:75%;max-width:75%}.col-lg-10{-ms-flex-preferred-size:83.33333333%;flex-basis:83.33333333%;max-width:83.33333333%}.col-lg-11{-ms-flex-preferred-size:91.66666667%;flex-basis:91.66666667%;max-width:91.66666667%}.col-lg-12{-ms-flex-preferred-size:100%;flex-basis:100%;max-width:100%}.col-lg-offset-0{margin-left:0}.col-lg-offset-1{margin-left:8.33333333%}.col-lg-offset-2{margin-left:16.66666667%}.col-lg-offset-3{margin-left:25%}.col-lg-offset-4{margin-left:33.33333333%}.col-lg-offset-5{margin-left:41.66666667%}.col-lg-offset-6{margin-left:50%}.col-lg-offset-7{margin-left:58.33333333%}.col-lg-offset-8{margin-left:66.66666667%}.col-lg-offset-9{margin-left:75%}.col-lg-offset-10{margin-left:83.33333333%}.col-lg-offset-11{margin-left:91.66666667%}.start-lg{-webkit-box-pack:start;-ms-flex-pack:start;justify-content:flex-start;text-align:start}.center-lg{-webkit-box-pack:center;-ms-flex-pack:center;justify-content:center;text-align:center}.end-lg{-webkit-box-pack:end;-ms-flex-pack:end;justify-content:flex-end;text-align:end}.top-lg{-webkit-box-align:start;-ms-flex-align:start;align-items:flex-start}.middle-lg{-webkit-box-align:center;-ms-flex-align:center;align-items:center}.bottom-lg{-webkit-box-align:end;-ms-flex-align:end;align-items:flex-end}.around-lg{-ms-flex-pack:distribute;justify-content:space-around}.between-lg{-webkit-box-pack:justify;-ms-flex-pack:justify;justify-content:space-between}.first-lg{-webkit-box-ordinal-group:0;-ms-flex-order:-1;order:-1}.last-lg{-webkit-box-ordinal-group:2;-ms-flex-order:1;order:1}}</style>
+  
+
+  
+
+  <link href="https://cdn.jsdelivr.net/gh/ooapex/blog/index.xml" rel="alternate" type="application/rss+xml"
+    title="OOAPEX">
+  
+  <link rel="preconnect" href="https://fonts.gstatic.com">
+  <link href="https://fonts.googleapis.com/css?family=Bree+Serif|Bungee+Shade" rel="stylesheet">
+  
+  
+
+  
+  
+</head>
+
+
+<body>
+  <article class="post " id="article">
+    <div class="row">
+      <div class="col-xs-12">
+        <div class="site-header">
+          
+<header>
+  <div class="header-title">
+    <a href="/"
+      >OOAPEX</a
+    >
+  </div>
+  <div class="header-subtitle">内观则自知，自治则自明。自明则不争讼，安之若素，如如不动</div>
+</header>
+<div class="row end-md header-items">
+  
+  <div class="header-item">
+    <a href="/projects/" target="_blank">Projects</a>
+  </div>
+  
+</div>
+<div class="row">
+   
+</div>
+<div class="header-line"></div>
+
+        </div>
+        <header class="post-header">
+          <h1 class="post-title">Sharelist&#43;Rclone挂载阿里云盘和onedrive的保姆级教程</h1>
+          
+          <div class="row post-desc">
+            <div class="col-xs-6">
+              
+              <time class="post-date" datetime="2021-08-09 00:00:00 UTC">
+                09 Aug 2021
+              </time>
+              
+            </div>
+            <div class="col-xs-6">
+              
+            </div>
+          </div>
+          
+        </header>
+
+        <div class="post-content markdown-body">
+          
+          <blockquote>
+<p>基于 sharelist，挂载阿里云盘，onedrive，google drive 等，搭建私人不限速网盘。<strong>文章末尾有 microsoft 5 T 子号相送</strong></p>
+</blockquote>
+<p>[toc]</p>
+<h1 id="前言">前言</h1>
+<p>自己平常看到有优惠活动，就申请了许多的网盘，有 onedrive，google drive，aliyunpan，teambition，蓝奏云等。就挺多的，但是也没有好好的利用，单单是阿里云就能有 10 T 的空间。因为存在以下问题：</p>
+<ul>
+<li>每次要下载个文件什么的，都需要登录客户端，然后下载，也用不了我的 aria 2 或者 IDM，虽然速度确实是跑满的，但是这么多网盘，使用体验确实没有那么好。</li>
+<li>而且，有时候想发一些文件给别人，一时间也找不到好的方式，只能通过 QQ 微信发送，很麻烦。</li>
+<li>自己网盘的空间得不到充分的利用，闲置很多</li>
+</ul>
+<p>于是乎，就有了拿这些网盘，挂载到一起，做一个大的网盘的想法。搜了网上的一些资料，有个很好用的软件 <a href="https://rclone.org/">Rclone</a>, 还有 <a href="https://github.com/reruin/sharelist">sharelist</a>, 前者可以将 onedrive、google drive、dropbox 等的挂载为本地磁盘，后者拥有设计精美的前端页面和后台管理系统，可拓展性强，搜寻资料，历经千难万险，终于摸索出了挂载这些网盘到前端页面的教程，使用方便，上传下载都很方便。</p>
+<p>本套教程包括了：</p>
+<ul>
+<li>sharelist 挂载阿里云盘</li>
+<li>rclone 挂载 onedrive 到 linux 硬盘</li>
+<li>sharelist 挂载本地硬盘</li>
+<li>持续更新</li>
+</ul>
+<p>最终效果：</p>
+<p>网址: <a href="https://pan.i52.me">https://pan.i52.me</a></p>
+<p><img src="https://image.ooapex.com/images/20210809162412.png" alt=""></p>
+<h1 id="宝塔面板安装">宝塔面板安装</h1>
+<blockquote>
+<p>其实，只要你足够熟悉 nginx 的相关配置命令，是不需要安装宝塔面板的。</p>
+</blockquote>
+<div class="highlight"><pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:2;-o-tab-size:2;tab-size:2;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>Centos安装脚本:yum install -y wget <span style="color:#ce5c00;font-weight:bold">&amp;&amp;</span> wget -O install.sh http://download.bt.cn/install/install_6.0.sh <span style="color:#ce5c00;font-weight:bold">&amp;&amp;</span> sh install.sh
+</span></span><span style="display:flex;"><span>Ubuntu/Deepin安装脚本: wget -O install.sh http://download.bt.cn/install/install-ubuntu_6.0.sh <span style="color:#ce5c00;font-weight:bold">&amp;&amp;</span> sudo bash install.sh
+</span></span><span style="display:flex;"><span>Debian安装脚本: wget -O install.sh http://download.bt.cn/install/install-ubuntu_6.0.sh <span style="color:#ce5c00;font-weight:bold">&amp;&amp;</span> bash install.sh
+</span></span><span style="display:flex;"><span>Fedora安装脚本: wget -O install.sh http://download.bt.cn/install/install_6.0.sh <span style="color:#ce5c00;font-weight:bold">&amp;&amp;</span> bash install.sh
+</span></span></code></pre></div><p>然后就等着就行了，等到脚本执行完出现了访问链接和密码，点击链接进入浏览器，就能够看到宝塔的登录面板了，默认安装 lnmp 运行环境，主要要用的就是个 nginx，如果不安装这些环境也无伤大雅。</p>
+<p><img src="https://image.ooapex.com/images/20210809164103.png" alt=""></p>
+<p><img src="https://image.ooapex.com/images/20210809164018.png" alt=""></p>
+<h1 id="sharelist-下载与安装">Sharelist 下载与安装</h1>
+<p><a href="https://github.com/reruin/sharelist">sharelist</a> 是由 reruin 开发的一款快捷挂载网盘的工具，支持挂载 google drive，onedrive 等。支持上传，下载，预览。<strong>注意，所有的网盘挂载后都支持下载预览等，但是只有以 <code>OD API</code> 方式挂载的 onedrive，<code>google API</code> 方式挂载的 Google drive，本地磁盘挂载这三种方式挂载的磁盘支持上传。</strong></p>
+<p>去 Baidu 或者 Google 搜索，所有的教程都是千篇一律的。你复制我，我复制你，什么有用的信息都没有，官方的文档也不够详细，解决不了我的问题。于是乎我就只能自己探索了，以下是在安装和配置过程中遇到的问题记忆解决方法。</p>
+<h2 id="安装-官方方法-dochttpsreruingithubiosharelistdocszh-cn">安装-官方方法 <a href="https://reruin.github.io/sharelist/docs/#/zh-cn/">Doc</a></h2>
+<blockquote>
+<p>需要：一个 VPS，一个宝塔面板，一个域名，一双灵巧的手</p>
+</blockquote>
+<p>官方方法大同小异，下面的教程大家可以照做，我直接复制下来以免在博客之间跳来跳去。</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:2;-o-tab-size:2;tab-size:2;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span><span style="color:#8f5902;font-style:italic">#Debian/Ubuntu系统</span>
+</span></span><span style="display:flex;"><span>apt-get -y install git
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#8f5902;font-style:italic">#CentOS/RHEL系统</span>
+</span></span><span style="display:flex;"><span>yum -y install git
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#8f5902;font-style:italic">#下载源码(国内国外下载源任选一个)</span>
+</span></span><span style="display:flex;"><span>git clone https://gitee.com/kenvie/sharelist.git   <span style="color:#8f5902;font-style:italic">#国内</span>
+</span></span><span style="display:flex;"><span>git clone https://github.com/reruin/sharelist.git  <span style="color:#8f5902;font-style:italic">#国外</span>
+</span></span><span style="display:flex;"><span><span style="color:#8f5902;font-style:italic">#执行安装</span>
+</span></span><span style="display:flex;"><span><span style="color:#204a87">cd</span> sharelist <span style="color:#ce5c00;font-weight:bold">&amp;&amp;</span> bash install.sh
+</span></span></code></pre></div><h3 id="坑-1sharelist-33001-无法访问">坑 1：sharelist 33001 无法访问？</h3>
+<p>执行完上面的命令，sharelist 就已经启动了，官方的教程会告诉你，访问 ip: 33001 就能够看到你的 sharelist，实际上，安装了宝塔面板后，这么做是不行的。需要做两步：</p>
+<ul>
+<li>如果你是腾讯云或阿里云等国内云服务器，首先需要去打开 <code>33001</code> 这个端口。</li>
+<li>接着，在宝塔的安全选项下，也要打开 33001 这个端口才行。</li>
+</ul>
+<p><img src="https://image.ooapex.com/images/20210809164509.png" alt=""></p>
+<p><img src="https://image.ooapex.com/images/20210809164622.png" alt=""></p>
+<p>这样，才能使用 ip: 33001 的格式来启动 sharelist。</p>
+<p>但是，拿 IP 访问，还带个端口，终究是上不了台面不太好看的，于是乎官方建议使用 nginx 反代，让链接更加的好看一点, 操作很简单.</p>
+<ol>
+<li>在宝塔中新建一个站点，啥也不需要，纯静态的站点，不需要 PHP 等环境，不需要数据库。</li>
+</ol>
+<p><img src="https://image.ooapex.com/images/20210809165314.png" alt=""></p>
+<ol start="2">
+<li>点击设置，设置反向代理。</li>
+</ol>
+<p><img src="https://image.ooapex.com/images/20210809165514.png" alt=""></p>
+<ol start="3">
+<li>
+<img src="https://image.ooapex.com/images/20210809165638.png" style="zoom:80%;" />
+</li>
+<li>
+<p>添加完毕以后，点击配置文件，在域名的后面添加以下的配置。</p>
+</li>
+</ol>
+<div class="highlight"><pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:2;-o-tab-size:2;tab-size:2;"><code class="language-fallback" data-lang="fallback"><span style="display:flex;"><span>	# 反代添加内容start
+</span></span><span style="display:flex;"><span>    proxy_set_header Host  $host;
+</span></span><span style="display:flex;"><span>    proxy_set_header X-Real-IP $remote_addr;
+</span></span><span style="display:flex;"><span>    proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+</span></span><span style="display:flex;"><span>    proxy_set_header X-Forwarded-Proto $scheme;
+</span></span><span style="display:flex;"><span>    client_max_body_size 8000m;
+</span></span><span style="display:flex;"><span>  
+</span></span><span style="display:flex;"><span>    proxy_set_header Range $http_range;
+</span></span><span style="display:flex;"><span>    proxy_set_header If-Range $http_if_range;
+</span></span><span style="display:flex;"><span>    proxy_no_cache $http_range $http_if_range;
+</span></span><span style="display:flex;"><span>    # 反代添加内容end
+</span></span></code></pre></div><p><img src="https://image.ooapex.com/images/20210809170307.png" alt=""></p>
+<p>好了，去解析你的域名到你的 vps 的 IP，就可以拿域名访问了。</p>
+<p>访问进去的基本设置就不多说，无非就是设置密码口令（自己记住），网盘名称等，首先网站会给一个样例，挂载本地硬盘。直接点击保存就能够进入 sharelist 前端的页面了。</p>
+<p><img src="https://image.ooapex.com/images/20210809175804.png" alt=""></p>
+<h2 id="非官方安装方法-一键脚本推荐">非官方安装方法-一键脚本（推荐）</h2>
+<div class="highlight"><pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:2;-o-tab-size:2;tab-size:2;"><code class="language-fallback" data-lang="fallback"><span style="display:flex;"><span>bash -c &#34;$(curl -sS https://www.cooluc.com/sharelist-install.sh)&#34;
+</span></span></code></pre></div><p>由某位大佬开发，内置了许多的主题，教程地址https://media.cooluc.com/source/sharelist</p>
+<h1 id="sharelist-挂载阿里云盘">Sharelist 挂载阿里云盘</h1>
+<h2 id="添加挂载源">添加挂载源</h2>
+<p>在 sharelist 后台选择 <code>阿里云盘(beta)</code>, 名称随便填，然后点击保存，然后进入主页。</p>
+<p><img src="https://image.ooapex.com/images/20210809180736.png" alt=""></p>
+<p>主页会出现刚才挂载的阿里云网盘，点击目录完成一些基本配置。</p>
+<p><img src="https://image.ooapex.com/images/20210809180805.png" alt=""></p>
+<h2 id="获取阿里云盘-token">获取阿里云盘 token</h2>
+<p>然后要<strong>获取阿里云的 token：</strong></p>
+<p>1、进入<a href="https://passport.aliyundrive.com/mini_login.htm?lang=zh_cn&amp;appName=aliyun_drive&amp;appEntrance=web&amp;styleType=auto&amp;bizParams=">阿里云盘手机页面</a> 打开 F 12 开发工具，登录阿里账号密码，点击登录的时候，开发工具网络中会新加载一个 login. Do 文件，右键复制 -&gt; 复制响应</p>
+<p>2、进入 <a href="https://media.cooluc.com/decode_token/">token解码</a> 粘贴响应数据，点击解码，复制弹出的 token，粘贴到 sharelist 的 token处</p>
+<p>感谢@ <a href="https://www.cooluc.com/">博主的</a> 的解码工具<img src="https://image.ooapex.com/images/20210809181106.png" alt=""></p>
+<p>根据上面的教程获取的 token 就是正确的 token，要不然可能会报下面的错误。</p>
+<h3 id="坑-2文件无法下载会报-xml-没有请求头的错误">坑 2：文件无法下载，会报 xml 没有请求头的错误</h3>
+<p>除了上面的 token 设置不正确之外，一般情况下，自己的 vps 服务器是没有 ssl 的，而 cloudflare 是可以提供 ssl，确实是很方便。但是对于 sharelist，如果只是客户端到 cloudflare 服务器收到 ssl 加密，而 cloudflare 到 vps 服务器的连接没有 ssl 加密，那么当从 sharelist 上下载文件时，会出现链接不匹配，参数为空等错误。最典型的是下面的</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:2;-o-tab-size:2;tab-size:2;"><code class="language-xml" data-lang="xml"><span style="display:flex;"><span>This XML file does not appear to have any style information associated with it. The document tree is shown below.
+</span></span></code></pre></div><p>反正就是下载和预览都是不行的，都会出现类似的错误，到这里小心是不是 SSL 的问题了。</p>
+<h1 id="sharelist-挂载-onedrive">Sharelist 挂载 onedrive</h1>
+<p>官网提供了各种各样的方法来挂载 onedrive，但是我试了一下以下几种。</p>
+<ul>
+<li><del>OD API：不管怎么样都挂载不成功，每次都告诉我 reply API 设置不正确，我放弃了。</del>（我又可以了 2021-08-09）</li>
+<li>Onedrive v 2：这个很容易就能挂载成功，但是缺点就是不能上传，我也放弃了。</li>
+<li><strong>后来使用 rclone 将 onedrive 挂载为本地硬盘。使用 sharelist 挂载本地硬盘，实现了最终效果，可上传下载预览。</strong></li>
+</ul>
+<h2 id="使用-od-api-挂载">使用 OD API 挂载</h2>
+<p>OD API 方式挂载的 onedrive，可以上传下载预览，而且不会走服务器的流量，可以说是理想之选。但是在实际的挂载过程中出现过很多的问题，其中最常见的就是<code>reply url</code>错误。找了很多的地方都没有找到解决的方法。</p>
+<p>最后发现，是因为 OD API 方式挂载的插件的原因，一致导致挂载失败。</p>
+<p><strong>注意：使用 OD API 挂载时，挂载的名字不能是<code>od</code> 或者<code>onedrive</code>或者<code>odrive</code>等，因为这是插件里面设置的关键字，会导致挂载出错</strong></p>
+<p><strong>注意：使用 OD API 挂载时，挂载的名字不能是<code>od</code> 或者<code>onedrive</code>或者<code>odrive</code>等，因为这是插件里面设置的关键字，会导致挂载出错</strong></p>
+<p><strong>注意：使用 OD API 挂载时，挂载的名字不能是<code>od</code> 或者<code>onedrive</code>或者<code>odrive</code>等，因为这是插件里面设置的关键字，会导致挂载出错</strong></p>
+<p>然后就简单了，只需要几个步骤。</p>
+<h3 id="访问后台注册应用">访问后台注册应用</h3>
+<p>指定路径，这里指定的是 a，那么在 microsoft 的后台，到时候指定的也只能是 a, 设置好后台之后，点击保存，回到前端，点击 a 目录。</p>
+<p><img src="https://image.ooapex.com/images/20210809210634.png" alt=""></p>
+<p>点击 azure 管理后台，然后注册应用。</p>
+<p><img src="https://image.ooapex.com/images/20210809210437.png" alt=""></p>
+<p>注册应用的配置如下：</p>
+<p><img src="https://image.ooapex.com/images/20210809210902.png" alt=""></p>
+<p>注册完后会跳转到下一个界面，然后就需要获取 app id 和 app_secret. 前者的获取很容易</p>
+<p><img src="https://image.ooapex.com/images/20210809211026.png" alt=""></p>
+<p>后者的获取需要进入<code>证书和密码，生成密钥才能行。</code></p>
+<p><img src="https://image.ooapex.com/images/20210809211205.png" alt=""></p>
+<p>复制下面的密钥，结合上面的 app_id，填入上面的 sharelist 认证页面中，一直点击下一步，就成啦。</p>
+<p><img src="https://image.ooapex.com/images/20210809211243.png" alt=""></p>
+<p>刷新自己的云盘，再次点击进入 a 目录，就能够看到自己已经挂载好的 onedrive 了。</p>
+<h2 id="sharelistrcloneonedrivevps-挂载">Sharelist+rclone+onedrive+vps 挂载</h2>
+<p>采用 rclone 将 onedrive 挂载为本地磁盘，然后再使用 sharelist 的本地磁盘挂载功能将挂载为本地盘的 onedrive 挂载到前端页面上，这样实现简单，但是会走服务器流量，服务器流量少的慎用。</p>
+<h3 id="linux-使用-rclone-挂载-onedrive-成为本地硬盘">Linux 使用 Rclone 挂载 onedrive 成为本地硬盘</h3>
+<p>参考<a href="https://www.misterma.com/archives/900/">博客</a>，写的很好很完善，一步到位</p>
+<h3 id="sharelist-挂载本地硬盘">Sharelist 挂载本地硬盘</h3>
+<p>上一步将 onedrive 挂载为本地硬盘之后，可以使用<code>df -h</code>查看自己服务器的容量，很容易就能看到自己新挂载的网盘有多大。</p>
+<p>然后进入 sharelist 后台页面，添加新的挂载源，操作跟挂载阿里云类似。</p>
+<p><img src="https://image.ooapex.com/images/20210809182609.png" alt=""></p>
+<p>然后就可以看到你的 onedrive 了，可以点击右上角的目录上传和下载文件，十分的简单，而且，不走服务器的流量，所有就算是 vps 也不用怕。</p>
+<h1 id="总结">总结</h1>
+<p>本文介绍了使用 sharelist 挂载阿里云盘和 onedrive 的方法，聚合网盘还是挺好用的，下面是我搜集的一些大佬搭建的网盘地址，有一些资源大家可以自行下载。</p>
+<ul>
+<li>
+<p><a href="https://ali.kenvie.com">https://ali.kenvie.com</a></p>
+</li>
+<li>
+<p><a href="https://pan.jindoucloud.top">https://pan.jindoucloud.top</a></p>
+</li>
+<li>
+<p><a href="https://drive.kenvie.com">https://drive.kenvie.com</a></p>
+</li>
+<li>
+<p><a href="https://media.cooluc.com">https://media.cooluc.com</a></p>
+</li>
+</ul>
+<blockquote>
+<p>前人种树后人乘凉，感谢各位大佬的奉献</p>
+</blockquote>
+<h1 id="福利">福利</h1>
+<p>为了测试挂载 onedrive 的问题，所以就申请了一些巨硬（微软）账号，每个账号都有 5 T 的 onedrive 空间，和 office 365 全家桶。需要自己搭建的网盘的或者需要 office 应用的，可以在下面留言邮箱以及想要的前缀，定期会给大家开号并发送到邮箱。</p>
+<p>申请格式：</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:2;-o-tab-size:2;tab-size:2;"><code class="language-fallback" data-lang="fallback"><span style="display:flex;"><span>前缀: ishland
+</span></span><span style="display:flex;"><span>邮箱： email@example.com  # 用于接收账号密码
+</span></span></code></pre></div>
+        </div>
+
+        <div class="row middle-xs">
+          <div class="col-xs-12">
+            
+          </div>
+        </div>
+        
+          <div class="row">
+            <div class="col-xs-12">
+              
+            </div>
+          </div>
+
+          
+
+
+
+          
+          
+          <div style="height: 50px;"></div>
+          
+
+          
+          <div>
+            <br>
+<br>
+<h3>评论</h3>
+<div style="width: 35px; height: 3px; background-color: rgb(42,77,208); margin-top: 10px; border-radius: 10px;"></div>
+<br/>
+<div id="cusdis_thread"
+     data-host="https://cusdis.com"
+     data-app-id="03d2d89e-f0de-42be-95de-b6daa304646e"
+     data-page-id="http://localhost:1313/posts/sharelist&#43;rclone%E6%8C%82%E8%BD%BD%E9%98%BF%E9%87%8C%E4%BA%91%E7%9B%98%E5%92%8Conedrive%E7%9A%84%E4%BF%9D%E5%A7%86%E7%BA%A7%E6%95%99%E7%A8%8B/"
+     data-page-url="http://localhost:1313/posts/sharelist&#43;rclone%E6%8C%82%E8%BD%BD%E9%98%BF%E9%87%8C%E4%BA%91%E7%9B%98%E5%92%8Conedrive%E7%9A%84%E4%BF%9D%E5%A7%86%E7%BA%A7%E6%95%99%E7%A8%8B/"
+     data-page-title="Sharelist&#43;Rclone挂载阿里云盘和onedrive的保姆级教程">
+</div><script type='text/javascript'>
+  (()=>{window.CUSDIS_LOCALE={powered_by:"\u8BC4\u8BBA\u7531 Cusdis \u63D0\u4F9B",post_comment:"\u53D1\u9001",loading:"\u52A0\u8F7D\u4E2D",email:"\u90AE\u7BB1\u5730\u5740 (\u53EF\u9009)",nickname:"\u6635\u79F0",reply_placeholder:"\u56DE\u590D\u5185\u5BB9\u2026",reply_btn:"\u56DE\u590D",sending:"\u53D1\u9001\u4E2D\u2026",mod_badge:"\u7BA1\u7406\u5458",content_is_required:"\u5185\u5BB9\u4E0D\u80FD\u4E3A\u7A7A",nickname_is_required:"\u6635\u79F0\u4E0D\u80FD\u4E3A\u7A7A",comment_has_been_sent:"\u8BC4\u8BBA\u5DF2\u53D1\u9001\uFF0C\u7BA1\u7406\u5458\u5BA1\u6838\u901A\u8FC7\u540E\u4F1A\u5C55\u793A"};})();
+
+</script><script type='text/javascript'>
+  (()=>{window.CUSDIS={};var l=e=>{let t=e.dataset.host||"https://cusdis.com",n=e.dataset.iframe||`${t}/js/iframe.umd.js`;return`<!DOCTYPE html>
+<html>
+  <head>
+    <link rel="stylesheet" href="${`${t}/js/style.css`}">
+    <base target="_parent" />
+    <link>
+    <script>
+      window.CUSDIS_LOCALE = ${JSON.stringify(window.CUSDIS_LOCALE)}
+      window.__DATA__ = ${JSON.stringify(e.dataset)}
+    <\/script>
+    <style>
+      :root {
+        color-scheme: light;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script src="${n}" type="module">
+      
+    <\/script>
+  </body>
+</html>`},s;function h(e){return s||(s=document.createElement("iframe"),u(s,e)),s.srcdoc=l(e),s.style.width="100%",s.style.border="0",s}function r(e,t){s&&s.contentWindow.postMessage(JSON.stringify({from:"cusdis",event:e,data:t}))}function u(e,t){let n=window.matchMedia("(prefers-color-scheme: dark)"),o=d=>{try{let i=JSON.parse(d.data);if(i.from==="cusdis")switch(i.event){case"onload":t.dataset.theme==="auto"&&r("setTheme",n.matches?"dark":"light");break;case"resize":e.style.height=i.data+"px";break}}catch{}};window.addEventListener("message",o);function a(d){let i=d.matches;t.dataset.theme==="auto"&&r("setTheme",i?"dark":"light")}return n.addEventListener("change",a),()=>{n.removeEventListener("change",a),window.removeEventListener("message",o)}}function c(e){if(e){e.innerHTML="";let t=h(e);e.appendChild(t)}}window.renderCusdis=c;window.CUSDIS.renderTo=c;window.CUSDIS.setTheme=function(e){r("setTheme",e)};function m(){let e;window.cusdisElementId?e=document.querySelector(`#${window.cusdisElementId}`):document.querySelector("#cusdis_thread")?e=document.querySelector("#cusdis_thread"):document.querySelector("#cusdis")&&(console.warn("id `cusdis` is deprecated. Please use `cusdis_thread` instead"),e=document.querySelector("#cusdis")),window.CUSDIS_PREVENT_INITIAL_RENDER===!0||e&&c(e)}window.CUSDIS.initial=m;m();})();
+
+</script>
+          </div>
+          
+        
+
+        <div class="site-footer">
+  
+  
+</div>
+
+      </div>
+    </div>
+  </article>
+
+  
+
+<script>
+  
+  
+    
+    
+  
+</script>
+
+  
+
+</body>
+
+</html>

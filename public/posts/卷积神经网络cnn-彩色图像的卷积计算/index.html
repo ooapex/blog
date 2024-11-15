@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+  <meta charset="utf-8" />
+  <meta name="generator" content="Hugo 0.138.0">
+
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="author" content="" />
+  <meta property="og:url" content="http://localhost:1313/posts/%E5%8D%B7%E7%A7%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9Ccnn-%E5%BD%A9%E8%89%B2%E5%9B%BE%E5%83%8F%E7%9A%84%E5%8D%B7%E7%A7%AF%E8%AE%A1%E7%AE%97/" />
+  <link rel="canonical" href="http://localhost:1313/posts/%E5%8D%B7%E7%A7%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9Ccnn-%E5%BD%A9%E8%89%B2%E5%9B%BE%E5%83%8F%E7%9A%84%E5%8D%B7%E7%A7%AF%E8%AE%A1%E7%AE%97/" /><link rel="dns-prefetch" href="https://cdn.jsdelivr.net/gh/ooapex/blog" /><link rel="alternate" type="application/atom+xml" href="http://localhost:1313/index.xml" title="OOAPEX">
+
+  <script type="application/ld+json">
+  {
+      "@context" : "http://schema.org",
+      "@type" : "BlogPosting",
+      "mainEntityOfPage": {
+           "@type": "WebPage",
+           "@id": "http:\/\/localhost:1313\/"
+      },
+      "articleSection" : "posts",
+      "name" : "卷积神经网络(CNN)-彩色图像的卷积计算",
+      "headline" : "卷积神经网络(CNN)-彩色图像的卷积计算",
+      "description" : " 相关链接\n001-卷积神经网络(CNN)-什么是卷积运算\n卷积为什么有效？ 前面说到在利用基本的神经网络做计算时，会出现参数爆炸的现象，一张 1000*1000*3 的图像，在包含 1000 个隐层的情况下，会有 3 亿个参数需要训练，这无疑是一个很大的问题。那么卷积运算就出现了，因为它的参数真的很少，且很固定。\n普通的神经网络计算，权值矩阵 (w) 中的参数的个数是随着输入矩阵的增加而增加的。而在卷积计算中，引入了过滤矩阵（或卷积核），卷积核中的参数的个数，是我们要利用神经网络训练的参数的个数。比如有一个 6*6 的卷积核，那么在本次卷积中，需要确定的参数的个数也就是 36 个。无论是多大的图片，无论图片的大小怎么改变，最终需要确定的只有 36 个参数，这也是神经网络中的一个重要的思想-参数共享。\n彩色 (RGB) 图像如何进行卷积计算 前面进行卷积运算时，我们讨论的都是一个简单的二维矩阵，可以认为它是只含有一个通道的图像（黑白图像等），那么彩色图像的卷积应该怎么计算呢？\n一个 6*6*3 的图像，那么为了进行卷积运算，其卷积核也应该是具有三个通道 (channel) 的。这样才能保证计算 计算方法与二维的类似，输入矩阵与过滤矩阵每一层的对应位置的数相乘并相加，最终得到一个数字，也就是做了三次的二维的运算，最终将结果相加起来得到最终的结果。 最终输出的结果矩阵，因为只有一个过滤矩阵，所以最终的结果矩阵一定是一个一维的 一定要保证过滤矩阵的通道个数与输入图像的通道个数是相同的，否则无法正确的进行卷积运算。\n卷积神经网络中的卷积层是什么？ 上面就是基本的卷积计算的运算法则，总结下来一句话：对应位置相乘并相加，算完移位，继续卷积\n那根据卷积计算，就可以构造单层卷积网络了，卷积网络与上图的不同是，它是由多个过滤层构成的。\n过滤器的作用就是利用不同的卷积核，来提取图像中的某些特征，如\n1 0 -1 1 0 -1 1 0 -1 就可以用来提取图像中的垂直边界或垂直特征。对图像利用多个过滤器进行卷积运算，将最终的结果组合到一起组成一个新的多维度矩阵，这就是卷积神经网络中的一次卷积运算。\n上图中的 6 x 6 x 3 的输入矩阵，分别经过两个 Fliter 进行卷积运算之后，得到两个 4 x 4 x 1 的矩阵，将这两个矩阵组合到一起，也就是最终的 4 x 4 x 2 的输出矩阵，这将作为整个网络下一步操作的输入（卷积，池化等）\n基本上到这里就能看懂许多文献上的卷积层了\n",
+      "inLanguage" : "en-US",
+      "author" : "",
+      "creator" : "",
+      "publisher": "",
+      "accountablePerson" : "",
+      "copyrightHolder" : "",
+      "copyrightYear" : "2021",
+      "datePublished": "2021-08-17 00:00:00 \u002b0000 UTC",
+      "dateModified" : "2021-08-17 00:00:00 \u002b0000 UTC",
+      "url" : "http:\/\/localhost:1313\/posts\/%E5%8D%B7%E7%A7%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9Ccnn-%E5%BD%A9%E8%89%B2%E5%9B%BE%E5%83%8F%E7%9A%84%E5%8D%B7%E7%A7%AF%E8%AE%A1%E7%AE%97\/",
+      "keywords" : [  ]
+  }
+</script>
+<title>卷积神经网络(CNN)-彩色图像的卷积计算</title>
+  <meta property="og:title" content="卷积神经网络(CNN)-彩色图像的卷积计算" />
+  <meta property="og:type" content="article" />
+  <meta property="og:description" content=" 相关链接
+001-卷积神经网络(CNN)-什么是卷积运算
+卷积为什么有效？ 前面说到在利用基本的神经网络做计算时，会出现参数爆炸的现象，一张 1000*1000*3 的图像，在包含 1000 个隐层的情况下，会有 3 亿个参数需要训练，这无疑是一个很大的问题。那么卷积运算就出现了，因为它的参数真的很少，且很固定。
+普通的神经网络计算，权值矩阵 (w) 中的参数的个数是随着输入矩阵的增加而增加的。而在卷积计算中，引入了过滤矩阵（或卷积核），卷积核中的参数的个数，是我们要利用神经网络训练的参数的个数。比如有一个 6*6 的卷积核，那么在本次卷积中，需要确定的参数的个数也就是 36 个。无论是多大的图片，无论图片的大小怎么改变，最终需要确定的只有 36 个参数，这也是神经网络中的一个重要的思想-参数共享。
+彩色 (RGB) 图像如何进行卷积计算 前面进行卷积运算时，我们讨论的都是一个简单的二维矩阵，可以认为它是只含有一个通道的图像（黑白图像等），那么彩色图像的卷积应该怎么计算呢？
+一个 6*6*3 的图像，那么为了进行卷积运算，其卷积核也应该是具有三个通道 (channel) 的。这样才能保证计算 计算方法与二维的类似，输入矩阵与过滤矩阵每一层的对应位置的数相乘并相加，最终得到一个数字，也就是做了三次的二维的运算，最终将结果相加起来得到最终的结果。 最终输出的结果矩阵，因为只有一个过滤矩阵，所以最终的结果矩阵一定是一个一维的 一定要保证过滤矩阵的通道个数与输入图像的通道个数是相同的，否则无法正确的进行卷积运算。
+卷积神经网络中的卷积层是什么？ 上面就是基本的卷积计算的运算法则，总结下来一句话：对应位置相乘并相加，算完移位，继续卷积
+那根据卷积计算，就可以构造单层卷积网络了，卷积网络与上图的不同是，它是由多个过滤层构成的。
+过滤器的作用就是利用不同的卷积核，来提取图像中的某些特征，如
+1 0 -1 1 0 -1 1 0 -1 就可以用来提取图像中的垂直边界或垂直特征。对图像利用多个过滤器进行卷积运算，将最终的结果组合到一起组成一个新的多维度矩阵，这就是卷积神经网络中的一次卷积运算。
+上图中的 6 x 6 x 3 的输入矩阵，分别经过两个 Fliter 进行卷积运算之后，得到两个 4 x 4 x 1 的矩阵，将这两个矩阵组合到一起，也就是最终的 4 x 4 x 2 的输出矩阵，这将作为整个网络下一步操作的输入（卷积，池化等）
+基本上到这里就能看懂许多文献上的卷积层了
+" />
+  <meta name="description" content=" 相关链接
+001-卷积神经网络(CNN)-什么是卷积运算
+卷积为什么有效？ 前面说到在利用基本的神经网络做计算时，会出现参数爆炸的现象，一张 1000*1000*3 的图像，在包含 1000 个隐层的情况下，会有 3 亿个参数需要训练，这无疑是一个很大的问题。那么卷积运算就出现了，因为它的参数真的很少，且很固定。
+普通的神经网络计算，权值矩阵 (w) 中的参数的个数是随着输入矩阵的增加而增加的。而在卷积计算中，引入了过滤矩阵（或卷积核），卷积核中的参数的个数，是我们要利用神经网络训练的参数的个数。比如有一个 6*6 的卷积核，那么在本次卷积中，需要确定的参数的个数也就是 36 个。无论是多大的图片，无论图片的大小怎么改变，最终需要确定的只有 36 个参数，这也是神经网络中的一个重要的思想-参数共享。
+彩色 (RGB) 图像如何进行卷积计算 前面进行卷积运算时，我们讨论的都是一个简单的二维矩阵，可以认为它是只含有一个通道的图像（黑白图像等），那么彩色图像的卷积应该怎么计算呢？
+一个 6*6*3 的图像，那么为了进行卷积运算，其卷积核也应该是具有三个通道 (channel) 的。这样才能保证计算 计算方法与二维的类似，输入矩阵与过滤矩阵每一层的对应位置的数相乘并相加，最终得到一个数字，也就是做了三次的二维的运算，最终将结果相加起来得到最终的结果。 最终输出的结果矩阵，因为只有一个过滤矩阵，所以最终的结果矩阵一定是一个一维的 一定要保证过滤矩阵的通道个数与输入图像的通道个数是相同的，否则无法正确的进行卷积运算。
+卷积神经网络中的卷积层是什么？ 上面就是基本的卷积计算的运算法则，总结下来一句话：对应位置相乘并相加，算完移位，继续卷积
+那根据卷积计算，就可以构造单层卷积网络了，卷积网络与上图的不同是，它是由多个过滤层构成的。
+过滤器的作用就是利用不同的卷积核，来提取图像中的某些特征，如
+1 0 -1 1 0 -1 1 0 -1 就可以用来提取图像中的垂直边界或垂直特征。对图像利用多个过滤器进行卷积运算，将最终的结果组合到一起组成一个新的多维度矩阵，这就是卷积神经网络中的一次卷积运算。
+上图中的 6 x 6 x 3 的输入矩阵，分别经过两个 Fliter 进行卷积运算之后，得到两个 4 x 4 x 1 的矩阵，将这两个矩阵组合到一起，也就是最终的 4 x 4 x 2 的输出矩阵，这将作为整个网络下一步操作的输入（卷积，池化等）
+基本上到这里就能看懂许多文献上的卷积层了
+" />
+  <meta property="og:locale" content="zh-cn" /><meta property="og:image" content="" />
+  
+
+  
+    <style>body{font-family:bree serif,sans-serif;-webkit-font-smoothing:antialiased;margin:0 20px}article{max-width:800px;margin-left:auto;margin-right:auto}a{color:#000;text-decoration:none}a:hover{font-weight:600;text-decoration:underline}.post-ads{margin:50px 0}.markdown-body{font-size:18px;max-width:100%}.markdown-body a{text-decoration:underline;text-decoration-color:#000}.markdown-body blockquote{margin:0;padding:0 1em;color:#57606a;border-left:.25em solid #d0d7de}.markdown-body pre{padding:16px;overflow:auto;border-radius:10px}.markdown-body code{padding:.2em .4em;font-size:85%;background-color:#f6f8fa;border-radius:6px}.markdown-body pre>code{padding:0;font-size:100%;background-color:inherit;border:0}.Chinese .markdown-body{line-height:200%}.site-date-catalog{font-size:2rem}.header-title{font-size:2rem;font-weight:700;margin-top:32px;font-family:bungee shade,sans-serif}.header-title a{text-decoration:none}.header-subtitle{color:#666}.header-items{margin:10px 0}.header-item{margin:0 5px}.header-line{width:100%;border-width:2px;border-color:#482936;border-style:solid none none none}.lang-switch{font-weight:600}#posts-list{min-height:600px}.posts-line{font-size:1.2rem;margin:12px 0}.posts-categories{font-size:.8rem;margin:auto;text-align:center}.posts-category{padding:3px 0;border:#000 2px solid;border-radius:5px}.site-footer{margin-top:50px}.site-footer-item{margin-right:12px}.post-header{margin-bottom:50px}.post-title{font-size:2rem;font-weight:600}.post-tags{display:inline;font-weight:600;padding:2px 5px;margin-right:6px;border:#000 2px solid;border-radius:5px}.post-date{font-weight:800;font-style:italic}.post-author{float:right;font-weight:600}.page-content{min-height:60%}.post-content{margin-bottom:50px}.post-content p{hyphens:auto;line-height:1.8;text-justify:ideographic;margin-bottom:1em}.post-content img{max-width:100%;display:block;margin-right:auto;margin-top:6px}.post-content .post-gallery{display:flex;flex-wrap:wrap;gap:6px}.post-content .post-gallery img{margin-right:auto;margin-top:auto;width:calc(50% - 3px)}.related-content{border-width:3px;border-style:solid;border-color:#000;padding:0 10px;margin-bottom:50px;margin-top:100px}.related-content li{margin:5px 0}.taxonomy-term{font-size:3rem}.gallery-img{text-align:center}.gallery-img span{text-align:center}.gallery-img-desc{font-size:.8em;font-weight:800}#disqus_thread{position:relative}#disqus_thread:after{content:"";display:block;height:55px;width:100%;position:absolute;bottom:0;background:#fff}@media screen and (max-width:600px){.header-title,.header-subtitle,.header-items{}.posts-line{font-size:16px}.markdown-body{font-size:16px}.post-title{font-size:2rem}.post-content p{letter-spacing:.05em}.post-content .post-gallery img{width:100%}}@media screen and (max-width:48em){.posts-category{display:none}}</style>
+  
+  
+    <style>.container,.container-fluid{margin-right:auto;margin-left:auto}.container-fluid{padding-right:2rem;padding-left:2rem}.row{box-sizing:border-box;display:-webkit-box;display:-ms-flexbox;display:flex;-webkit-box-flex:0;-ms-flex:0 1 auto;flex:initial;-webkit-box-orient:horizontal;-webkit-box-direction:normal;-ms-flex-direction:row;flex-direction:row;-ms-flex-wrap:wrap;flex-wrap:wrap;margin-right:-.5rem;margin-left:-.5rem}.row.reverse{-webkit-box-orient:horizontal;-webkit-box-direction:reverse;-ms-flex-direction:row-reverse;flex-direction:row-reverse}.col.reverse{-webkit-box-orient:vertical;-webkit-box-direction:reverse;-ms-flex-direction:column-reverse;flex-direction:column-reverse}.col-xs,.col-xs-1,.col-xs-10,.col-xs-11,.col-xs-12,.col-xs-2,.col-xs-3,.col-xs-4,.col-xs-5,.col-xs-6,.col-xs-7,.col-xs-8,.col-xs-9,.col-xs-offset-0,.col-xs-offset-1,.col-xs-offset-10,.col-xs-offset-11,.col-xs-offset-12,.col-xs-offset-2,.col-xs-offset-3,.col-xs-offset-4,.col-xs-offset-5,.col-xs-offset-6,.col-xs-offset-7,.col-xs-offset-8,.col-xs-offset-9{box-sizing:border-box;-webkit-box-flex:0;-ms-flex:0 0 auto;flex:none;padding-right:.5rem;padding-left:.5rem}.col-xs{-webkit-box-flex:1;-ms-flex-positive:1;flex-grow:1;-ms-flex-preferred-size:0;flex-basis:0;max-width:100%}.col-xs-1{-ms-flex-preferred-size:8.33333333%;flex-basis:8.33333333%;max-width:8.33333333%}.col-xs-2{-ms-flex-preferred-size:16.66666667%;flex-basis:16.66666667%;max-width:16.66666667%}.col-xs-3{-ms-flex-preferred-size:25%;flex-basis:25%;max-width:25%}.col-xs-4{-ms-flex-preferred-size:33.33333333%;flex-basis:33.33333333%;max-width:33.33333333%}.col-xs-5{-ms-flex-preferred-size:41.66666667%;flex-basis:41.66666667%;max-width:41.66666667%}.col-xs-6{-ms-flex-preferred-size:50%;flex-basis:50%;max-width:50%}.col-xs-7{-ms-flex-preferred-size:58.33333333%;flex-basis:58.33333333%;max-width:58.33333333%}.col-xs-8{-ms-flex-preferred-size:66.66666667%;flex-basis:66.66666667%;max-width:66.66666667%}.col-xs-9{-ms-flex-preferred-size:75%;flex-basis:75%;max-width:75%}.col-xs-10{-ms-flex-preferred-size:83.33333333%;flex-basis:83.33333333%;max-width:83.33333333%}.col-xs-11{-ms-flex-preferred-size:91.66666667%;flex-basis:91.66666667%;max-width:91.66666667%}.col-xs-12{-ms-flex-preferred-size:100%;flex-basis:100%;max-width:100%}.col-xs-offset-0{margin-left:0}.col-xs-offset-1{margin-left:8.33333333%}.col-xs-offset-2{margin-left:16.66666667%}.col-xs-offset-3{margin-left:25%}.col-xs-offset-4{margin-left:33.33333333%}.col-xs-offset-5{margin-left:41.66666667%}.col-xs-offset-6{margin-left:50%}.col-xs-offset-7{margin-left:58.33333333%}.col-xs-offset-8{margin-left:66.66666667%}.col-xs-offset-9{margin-left:75%}.col-xs-offset-10{margin-left:83.33333333%}.col-xs-offset-11{margin-left:91.66666667%}.start-xs{-webkit-box-pack:start;-ms-flex-pack:start;justify-content:flex-start;text-align:start}.center-xs{-webkit-box-pack:center;-ms-flex-pack:center;justify-content:center;text-align:center}.end-xs{-webkit-box-pack:end;-ms-flex-pack:end;justify-content:flex-end;text-align:end}.top-xs{-webkit-box-align:start;-ms-flex-align:start;align-items:flex-start}.middle-xs{-webkit-box-align:center;-ms-flex-align:center;align-items:center}.bottom-xs{-webkit-box-align:end;-ms-flex-align:end;align-items:flex-end}.around-xs{-ms-flex-pack:distribute;justify-content:space-around}.between-xs{-webkit-box-pack:justify;-ms-flex-pack:justify;justify-content:space-between}.first-xs{-webkit-box-ordinal-group:0;-ms-flex-order:-1;order:-1}.last-xs{-webkit-box-ordinal-group:2;-ms-flex-order:1;order:1}@media only screen and (min-width:48em){.container{width:49rem}.col-sm,.col-sm-1,.col-sm-10,.col-sm-11,.col-sm-12,.col-sm-2,.col-sm-3,.col-sm-4,.col-sm-5,.col-sm-6,.col-sm-7,.col-sm-8,.col-sm-9,.col-sm-offset-0,.col-sm-offset-1,.col-sm-offset-10,.col-sm-offset-11,.col-sm-offset-12,.col-sm-offset-2,.col-sm-offset-3,.col-sm-offset-4,.col-sm-offset-5,.col-sm-offset-6,.col-sm-offset-7,.col-sm-offset-8,.col-sm-offset-9{box-sizing:border-box;-webkit-box-flex:0;-ms-flex:0 0 auto;flex:none;padding-right:.5rem;padding-left:.5rem}.col-sm{-webkit-box-flex:1;-ms-flex-positive:1;flex-grow:1;-ms-flex-preferred-size:0;flex-basis:0;max-width:100%}.col-sm-1{-ms-flex-preferred-size:8.33333333%;flex-basis:8.33333333%;max-width:8.33333333%}.col-sm-2{-ms-flex-preferred-size:16.66666667%;flex-basis:16.66666667%;max-width:16.66666667%}.col-sm-3{-ms-flex-preferred-size:25%;flex-basis:25%;max-width:25%}.col-sm-4{-ms-flex-preferred-size:33.33333333%;flex-basis:33.33333333%;max-width:33.33333333%}.col-sm-5{-ms-flex-preferred-size:41.66666667%;flex-basis:41.66666667%;max-width:41.66666667%}.col-sm-6{-ms-flex-preferred-size:50%;flex-basis:50%;max-width:50%}.col-sm-7{-ms-flex-preferred-size:58.33333333%;flex-basis:58.33333333%;max-width:58.33333333%}.col-sm-8{-ms-flex-preferred-size:66.66666667%;flex-basis:66.66666667%;max-width:66.66666667%}.col-sm-9{-ms-flex-preferred-size:75%;flex-basis:75%;max-width:75%}.col-sm-10{-ms-flex-preferred-size:83.33333333%;flex-basis:83.33333333%;max-width:83.33333333%}.col-sm-11{-ms-flex-preferred-size:91.66666667%;flex-basis:91.66666667%;max-width:91.66666667%}.col-sm-12{-ms-flex-preferred-size:100%;flex-basis:100%;max-width:100%}.col-sm-offset-0{margin-left:0}.col-sm-offset-1{margin-left:8.33333333%}.col-sm-offset-2{margin-left:16.66666667%}.col-sm-offset-3{margin-left:25%}.col-sm-offset-4{margin-left:33.33333333%}.col-sm-offset-5{margin-left:41.66666667%}.col-sm-offset-6{margin-left:50%}.col-sm-offset-7{margin-left:58.33333333%}.col-sm-offset-8{margin-left:66.66666667%}.col-sm-offset-9{margin-left:75%}.col-sm-offset-10{margin-left:83.33333333%}.col-sm-offset-11{margin-left:91.66666667%}.start-sm{-webkit-box-pack:start;-ms-flex-pack:start;justify-content:flex-start;text-align:start}.center-sm{-webkit-box-pack:center;-ms-flex-pack:center;justify-content:center;text-align:center}.end-sm{-webkit-box-pack:end;-ms-flex-pack:end;justify-content:flex-end;text-align:end}.top-sm{-webkit-box-align:start;-ms-flex-align:start;align-items:flex-start}.middle-sm{-webkit-box-align:center;-ms-flex-align:center;align-items:center}.bottom-sm{-webkit-box-align:end;-ms-flex-align:end;align-items:flex-end}.around-sm{-ms-flex-pack:distribute;justify-content:space-around}.between-sm{-webkit-box-pack:justify;-ms-flex-pack:justify;justify-content:space-between}.first-sm{-webkit-box-ordinal-group:0;-ms-flex-order:-1;order:-1}.last-sm{-webkit-box-ordinal-group:2;-ms-flex-order:1;order:1}}@media only screen and (min-width:64em){.container{width:65rem}.col-md,.col-md-1,.col-md-10,.col-md-11,.col-md-12,.col-md-2,.col-md-3,.col-md-4,.col-md-5,.col-md-6,.col-md-7,.col-md-8,.col-md-9,.col-md-offset-0,.col-md-offset-1,.col-md-offset-10,.col-md-offset-11,.col-md-offset-12,.col-md-offset-2,.col-md-offset-3,.col-md-offset-4,.col-md-offset-5,.col-md-offset-6,.col-md-offset-7,.col-md-offset-8,.col-md-offset-9{box-sizing:border-box;-webkit-box-flex:0;-ms-flex:0 0 auto;flex:none;padding-right:.5rem;padding-left:.5rem}.col-md{-webkit-box-flex:1;-ms-flex-positive:1;flex-grow:1;-ms-flex-preferred-size:0;flex-basis:0;max-width:100%}.col-md-1{-ms-flex-preferred-size:8.33333333%;flex-basis:8.33333333%;max-width:8.33333333%}.col-md-2{-ms-flex-preferred-size:16.66666667%;flex-basis:16.66666667%;max-width:16.66666667%}.col-md-3{-ms-flex-preferred-size:25%;flex-basis:25%;max-width:25%}.col-md-4{-ms-flex-preferred-size:33.33333333%;flex-basis:33.33333333%;max-width:33.33333333%}.col-md-5{-ms-flex-preferred-size:41.66666667%;flex-basis:41.66666667%;max-width:41.66666667%}.col-md-6{-ms-flex-preferred-size:50%;flex-basis:50%;max-width:50%}.col-md-7{-ms-flex-preferred-size:58.33333333%;flex-basis:58.33333333%;max-width:58.33333333%}.col-md-8{-ms-flex-preferred-size:66.66666667%;flex-basis:66.66666667%;max-width:66.66666667%}.col-md-9{-ms-flex-preferred-size:75%;flex-basis:75%;max-width:75%}.col-md-10{-ms-flex-preferred-size:83.33333333%;flex-basis:83.33333333%;max-width:83.33333333%}.col-md-11{-ms-flex-preferred-size:91.66666667%;flex-basis:91.66666667%;max-width:91.66666667%}.col-md-12{-ms-flex-preferred-size:100%;flex-basis:100%;max-width:100%}.col-md-offset-0{margin-left:0}.col-md-offset-1{margin-left:8.33333333%}.col-md-offset-2{margin-left:16.66666667%}.col-md-offset-3{margin-left:25%}.col-md-offset-4{margin-left:33.33333333%}.col-md-offset-5{margin-left:41.66666667%}.col-md-offset-6{margin-left:50%}.col-md-offset-7{margin-left:58.33333333%}.col-md-offset-8{margin-left:66.66666667%}.col-md-offset-9{margin-left:75%}.col-md-offset-10{margin-left:83.33333333%}.col-md-offset-11{margin-left:91.66666667%}.start-md{-webkit-box-pack:start;-ms-flex-pack:start;justify-content:flex-start;text-align:start}.center-md{-webkit-box-pack:center;-ms-flex-pack:center;justify-content:center;text-align:center}.end-md{-webkit-box-pack:end;-ms-flex-pack:end;justify-content:flex-end;text-align:end}.top-md{-webkit-box-align:start;-ms-flex-align:start;align-items:flex-start}.middle-md{-webkit-box-align:center;-ms-flex-align:center;align-items:center}.bottom-md{-webkit-box-align:end;-ms-flex-align:end;align-items:flex-end}.around-md{-ms-flex-pack:distribute;justify-content:space-around}.between-md{-webkit-box-pack:justify;-ms-flex-pack:justify;justify-content:space-between}.first-md{-webkit-box-ordinal-group:0;-ms-flex-order:-1;order:-1}.last-md{-webkit-box-ordinal-group:2;-ms-flex-order:1;order:1}}@media only screen and (min-width:75em){.container{width:76rem}.col-lg,.col-lg-1,.col-lg-10,.col-lg-11,.col-lg-12,.col-lg-2,.col-lg-3,.col-lg-4,.col-lg-5,.col-lg-6,.col-lg-7,.col-lg-8,.col-lg-9,.col-lg-offset-0,.col-lg-offset-1,.col-lg-offset-10,.col-lg-offset-11,.col-lg-offset-12,.col-lg-offset-2,.col-lg-offset-3,.col-lg-offset-4,.col-lg-offset-5,.col-lg-offset-6,.col-lg-offset-7,.col-lg-offset-8,.col-lg-offset-9{box-sizing:border-box;-webkit-box-flex:0;-ms-flex:0 0 auto;flex:none;padding-right:.5rem;padding-left:.5rem}.col-lg{-webkit-box-flex:1;-ms-flex-positive:1;flex-grow:1;-ms-flex-preferred-size:0;flex-basis:0;max-width:100%}.col-lg-1{-ms-flex-preferred-size:8.33333333%;flex-basis:8.33333333%;max-width:8.33333333%}.col-lg-2{-ms-flex-preferred-size:16.66666667%;flex-basis:16.66666667%;max-width:16.66666667%}.col-lg-3{-ms-flex-preferred-size:25%;flex-basis:25%;max-width:25%}.col-lg-4{-ms-flex-preferred-size:33.33333333%;flex-basis:33.33333333%;max-width:33.33333333%}.col-lg-5{-ms-flex-preferred-size:41.66666667%;flex-basis:41.66666667%;max-width:41.66666667%}.col-lg-6{-ms-flex-preferred-size:50%;flex-basis:50%;max-width:50%}.col-lg-7{-ms-flex-preferred-size:58.33333333%;flex-basis:58.33333333%;max-width:58.33333333%}.col-lg-8{-ms-flex-preferred-size:66.66666667%;flex-basis:66.66666667%;max-width:66.66666667%}.col-lg-9{-ms-flex-preferred-size:75%;flex-basis:75%;max-width:75%}.col-lg-10{-ms-flex-preferred-size:83.33333333%;flex-basis:83.33333333%;max-width:83.33333333%}.col-lg-11{-ms-flex-preferred-size:91.66666667%;flex-basis:91.66666667%;max-width:91.66666667%}.col-lg-12{-ms-flex-preferred-size:100%;flex-basis:100%;max-width:100%}.col-lg-offset-0{margin-left:0}.col-lg-offset-1{margin-left:8.33333333%}.col-lg-offset-2{margin-left:16.66666667%}.col-lg-offset-3{margin-left:25%}.col-lg-offset-4{margin-left:33.33333333%}.col-lg-offset-5{margin-left:41.66666667%}.col-lg-offset-6{margin-left:50%}.col-lg-offset-7{margin-left:58.33333333%}.col-lg-offset-8{margin-left:66.66666667%}.col-lg-offset-9{margin-left:75%}.col-lg-offset-10{margin-left:83.33333333%}.col-lg-offset-11{margin-left:91.66666667%}.start-lg{-webkit-box-pack:start;-ms-flex-pack:start;justify-content:flex-start;text-align:start}.center-lg{-webkit-box-pack:center;-ms-flex-pack:center;justify-content:center;text-align:center}.end-lg{-webkit-box-pack:end;-ms-flex-pack:end;justify-content:flex-end;text-align:end}.top-lg{-webkit-box-align:start;-ms-flex-align:start;align-items:flex-start}.middle-lg{-webkit-box-align:center;-ms-flex-align:center;align-items:center}.bottom-lg{-webkit-box-align:end;-ms-flex-align:end;align-items:flex-end}.around-lg{-ms-flex-pack:distribute;justify-content:space-around}.between-lg{-webkit-box-pack:justify;-ms-flex-pack:justify;justify-content:space-between}.first-lg{-webkit-box-ordinal-group:0;-ms-flex-order:-1;order:-1}.last-lg{-webkit-box-ordinal-group:2;-ms-flex-order:1;order:1}}</style>
+  
+
+  
+
+  <link href="https://cdn.jsdelivr.net/gh/ooapex/blog/index.xml" rel="alternate" type="application/rss+xml"
+    title="OOAPEX">
+  
+  <link rel="preconnect" href="https://fonts.gstatic.com">
+  <link href="https://fonts.googleapis.com/css?family=Bree+Serif|Bungee+Shade" rel="stylesheet">
+  
+  
+
+  
+  
+</head>
+
+
+<body>
+  <article class="post " id="article">
+    <div class="row">
+      <div class="col-xs-12">
+        <div class="site-header">
+          
+<header>
+  <div class="header-title">
+    <a href="/"
+      >OOAPEX</a
+    >
+  </div>
+  <div class="header-subtitle">内观则自知，自治则自明。自明则不争讼，安之若素，如如不动</div>
+</header>
+<div class="row end-md header-items">
+  
+  <div class="header-item">
+    <a href="/projects/" target="_blank">Projects</a>
+  </div>
+  
+</div>
+<div class="row">
+   
+</div>
+<div class="header-line"></div>
+
+        </div>
+        <header class="post-header">
+          <h1 class="post-title">卷积神经网络(CNN)-彩色图像的卷积计算</h1>
+          
+          <div class="row post-desc">
+            <div class="col-xs-6">
+              
+              <time class="post-date" datetime="2021-08-17 00:00:00 UTC">
+                17 Aug 2021
+              </time>
+              
+            </div>
+            <div class="col-xs-6">
+              
+            </div>
+          </div>
+          
+        </header>
+
+        <div class="post-content markdown-body">
+          
+          <blockquote>
+<p>相关链接</p>
+</blockquote>
+<p><a href="http://82.157.75.233:8000/jhsjtlcnnsmsjhzs/">001-卷积神经网络(CNN)-什么是卷积运算</a></p>
+<h1 id="卷积为什么有效">卷积为什么有效？</h1>
+<p>前面说到在利用基本的神经网络做计算时，会出现参数爆炸的现象，一张 <code>1000*1000*3</code> 的图像，在包含 1000 个隐层的情况下，会有 3 亿个参数需要训练，这无疑是一个很大的问题。那么卷积运算就出现了，因为它的参数真的很少，且很固定。</p>
+<p>普通的神经网络计算，权值矩阵 (<strong>w</strong>) 中的参数的个数是随着输入矩阵的增加而增加的。而在卷积计算中，引入了过滤矩阵（或卷积核），卷积核中的参数的个数，是我们要利用神经网络训练的参数的个数。比如有一个 <code>6*6</code> 的卷积核，那么在本次卷积中，需要确定的参数的个数也就是 36 个。无论是多大的图片，无论图片的大小怎么改变，最终需要确定的只有 36 个参数，这也是神经网络中的一个重要的思想-<strong>参数共享</strong>。</p>
+<h1 id="彩色-rgb-图像如何进行卷积计算">彩色 (RGB) 图像如何进行卷积计算</h1>
+<p>前面进行卷积运算时，我们讨论的都是一个简单的二维矩阵，可以认为它是只含有一个通道的图像（黑白图像等），那么彩色图像的卷积应该怎么计算呢？</p>
+<ol>
+<li>一个 <code>6*6*3</code> 的图像，那么为了进行卷积运算，其卷积核也应该是具有三个通道 (<strong>channel</strong>) 的。这样才能保证计算</li>
+</ol>
+<p><img src="https://image.ooapex.com/images/20210806142719.png" alt=""></p>
+<ol start="2">
+<li>计算方法与二维的类似，<strong>输入矩阵与过滤矩阵每一层的对应位置的数相乘并相加，最终得到一个数字，也就是做了三次的二维的运算，最终将结果相加起来得到最终的结果</strong>。</li>
+<li>最终输出的结果矩阵，因为只有一个过滤矩阵，所以最终的结果矩阵一定是一个一维的</li>
+</ol>
+<blockquote>
+<p><strong>一定要保证过滤矩阵的通道个数与输入图像的通道个数是相同的，否则无法正确的进行卷积运算。</strong></p>
+</blockquote>
+<h1 id="卷积神经网络中的卷积层是什么">卷积神经网络中的卷积层是什么？</h1>
+<p>上面就是基本的卷积计算的运算法则，总结下来一句话：<strong>对应位置相乘并相加，算完移位，继续卷积</strong></p>
+<p>那根据卷积计算，就可以构造单层卷积网络了，卷积网络与上图的不同是，它是由多个过滤层构成的。</p>
+<p><img src="https://image.ooapex.com/images/20210806145933.png" alt=""></p>
+<p>过滤器的作用就是利用不同的卷积核，来提取图像中的某些特征，如</p>
+<table>
+  <thead>
+      <tr>
+          <th style="text-align: center">1</th>
+          <th style="text-align: center">0</th>
+          <th style="text-align: center">-1</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td style="text-align: center">1</td>
+          <td style="text-align: center">0</td>
+          <td style="text-align: center">-1</td>
+      </tr>
+      <tr>
+          <td style="text-align: center">1</td>
+          <td style="text-align: center">0</td>
+          <td style="text-align: center">-1</td>
+      </tr>
+  </tbody>
+</table>
+<p>就可以用来提取图像中的垂直边界或垂直特征。对图像利用多个过滤器进行卷积运算，将最终的结果组合到一起组成一个新的多维度矩阵，这就是卷积神经网络中的一次卷积运算。</p>
+<p>上图中的 6 x 6 x 3 的输入矩阵，分别经过两个 Fliter 进行卷积运算之后，得到两个 4 x 4 x 1 的矩阵，将这两个矩阵组合到一起，也就是最终的 4 x 4 x 2 的输出矩阵，这将作为整个网络下一步操作的输入（卷积，池化等）</p>
+<p>基本上到这里就能看懂许多文献上的卷积层了</p>
+<p><img src="https://image.ooapex.com/images/20210806150915.png" alt=""></p>
+<p>如上图中就是小猫图像，做了三次卷积操作，每次卷积操作的过滤器的数量都会增加，但是过滤器的维度会下降，这是为什么呢？</p>
+<p>下一节将介绍</p>
+<ul>
+<li>卷积神经网络的符号约定</li>
+<li>池化层</li>
+<li>全连接层</li>
+</ul>
+
+        </div>
+
+        <div class="row middle-xs">
+          <div class="col-xs-12">
+            
+          </div>
+        </div>
+        
+          <div class="row">
+            <div class="col-xs-12">
+              
+            </div>
+          </div>
+
+          
+
+
+
+          
+          
+          <div style="height: 50px;"></div>
+          
+
+          
+          <div>
+            <br>
+<br>
+<h3>评论</h3>
+<div style="width: 35px; height: 3px; background-color: rgb(42,77,208); margin-top: 10px; border-radius: 10px;"></div>
+<br/>
+<div id="cusdis_thread"
+     data-host="https://cusdis.com"
+     data-app-id="03d2d89e-f0de-42be-95de-b6daa304646e"
+     data-page-id="http://localhost:1313/posts/%E5%8D%B7%E7%A7%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9Ccnn-%E5%BD%A9%E8%89%B2%E5%9B%BE%E5%83%8F%E7%9A%84%E5%8D%B7%E7%A7%AF%E8%AE%A1%E7%AE%97/"
+     data-page-url="http://localhost:1313/posts/%E5%8D%B7%E7%A7%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9Ccnn-%E5%BD%A9%E8%89%B2%E5%9B%BE%E5%83%8F%E7%9A%84%E5%8D%B7%E7%A7%AF%E8%AE%A1%E7%AE%97/"
+     data-page-title="卷积神经网络(CNN)-彩色图像的卷积计算">
+</div><script type='text/javascript'>
+  (()=>{window.CUSDIS_LOCALE={powered_by:"\u8BC4\u8BBA\u7531 Cusdis \u63D0\u4F9B",post_comment:"\u53D1\u9001",loading:"\u52A0\u8F7D\u4E2D",email:"\u90AE\u7BB1\u5730\u5740 (\u53EF\u9009)",nickname:"\u6635\u79F0",reply_placeholder:"\u56DE\u590D\u5185\u5BB9\u2026",reply_btn:"\u56DE\u590D",sending:"\u53D1\u9001\u4E2D\u2026",mod_badge:"\u7BA1\u7406\u5458",content_is_required:"\u5185\u5BB9\u4E0D\u80FD\u4E3A\u7A7A",nickname_is_required:"\u6635\u79F0\u4E0D\u80FD\u4E3A\u7A7A",comment_has_been_sent:"\u8BC4\u8BBA\u5DF2\u53D1\u9001\uFF0C\u7BA1\u7406\u5458\u5BA1\u6838\u901A\u8FC7\u540E\u4F1A\u5C55\u793A"};})();
+
+</script><script type='text/javascript'>
+  (()=>{window.CUSDIS={};var l=e=>{let t=e.dataset.host||"https://cusdis.com",n=e.dataset.iframe||`${t}/js/iframe.umd.js`;return`<!DOCTYPE html>
+<html>
+  <head>
+    <link rel="stylesheet" href="${`${t}/js/style.css`}">
+    <base target="_parent" />
+    <link>
+    <script>
+      window.CUSDIS_LOCALE = ${JSON.stringify(window.CUSDIS_LOCALE)}
+      window.__DATA__ = ${JSON.stringify(e.dataset)}
+    <\/script>
+    <style>
+      :root {
+        color-scheme: light;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script src="${n}" type="module">
+      
+    <\/script>
+  </body>
+</html>`},s;function h(e){return s||(s=document.createElement("iframe"),u(s,e)),s.srcdoc=l(e),s.style.width="100%",s.style.border="0",s}function r(e,t){s&&s.contentWindow.postMessage(JSON.stringify({from:"cusdis",event:e,data:t}))}function u(e,t){let n=window.matchMedia("(prefers-color-scheme: dark)"),o=d=>{try{let i=JSON.parse(d.data);if(i.from==="cusdis")switch(i.event){case"onload":t.dataset.theme==="auto"&&r("setTheme",n.matches?"dark":"light");break;case"resize":e.style.height=i.data+"px";break}}catch{}};window.addEventListener("message",o);function a(d){let i=d.matches;t.dataset.theme==="auto"&&r("setTheme",i?"dark":"light")}return n.addEventListener("change",a),()=>{n.removeEventListener("change",a),window.removeEventListener("message",o)}}function c(e){if(e){e.innerHTML="";let t=h(e);e.appendChild(t)}}window.renderCusdis=c;window.CUSDIS.renderTo=c;window.CUSDIS.setTheme=function(e){r("setTheme",e)};function m(){let e;window.cusdisElementId?e=document.querySelector(`#${window.cusdisElementId}`):document.querySelector("#cusdis_thread")?e=document.querySelector("#cusdis_thread"):document.querySelector("#cusdis")&&(console.warn("id `cusdis` is deprecated. Please use `cusdis_thread` instead"),e=document.querySelector("#cusdis")),window.CUSDIS_PREVENT_INITIAL_RENDER===!0||e&&c(e)}window.CUSDIS.initial=m;m();})();
+
+</script>
+          </div>
+          
+        
+
+        <div class="site-footer">
+  
+  
+</div>
+
+      </div>
+    </div>
+  </article>
+
+  
+
+<script>
+  
+  
+    
+    
+  
+</script>
+
+  
+
+</body>
+
+</html>

@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+  <meta charset="utf-8" />
+  <meta name="generator" content="Hugo 0.138.0">
+
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="author" content="" />
+  <meta property="og:url" content="http://localhost:1313/posts/%E5%8D%B7%E7%A7%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9Ccnn-%E4%BB%80%E4%B9%88%E6%98%AF%E5%8D%B7%E7%A7%AF%E8%BF%90%E7%AE%97/" />
+  <link rel="canonical" href="http://localhost:1313/posts/%E5%8D%B7%E7%A7%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9Ccnn-%E4%BB%80%E4%B9%88%E6%98%AF%E5%8D%B7%E7%A7%AF%E8%BF%90%E7%AE%97/" /><link rel="dns-prefetch" href="https://cdn.jsdelivr.net/gh/ooapex/blog" /><link rel="alternate" type="application/atom+xml" href="http://localhost:1313/index.xml" title="OOAPEX">
+
+  <script type="application/ld+json">
+  {
+      "@context" : "http://schema.org",
+      "@type" : "BlogPosting",
+      "mainEntityOfPage": {
+           "@type": "WebPage",
+           "@id": "http:\/\/localhost:1313\/"
+      },
+      "articleSection" : "posts",
+      "name" : "卷积神经网络(CNN)-什么是卷积运算",
+      "headline" : "卷积神经网络(CNN)-什么是卷积运算",
+      "description" : "卷积计算的来源 想象这么一个例子，有一些图片，我们要判断这些图片中含不含有猫。如果用基本的神经网络做二分类（logistics regression）的话，当以一张64x64x3的图片作为输入进行神经网络运算时，其输入端总共有12288个输入，当神经网络只有一层，且这一层有1000个节点时，那么对于这个神经网络，连接输入与神经网络节点之间的的权值矩阵将是一个（1000，12288）的矩阵，也就是有12,288,000个参数需要确定，也就是1000万左右，这还仅仅是一张1.5k左右的图片，进行训练的时候就需要确定1000万个参数，如果图片再大一点，1000*1000*3的话（366K），那么需要确定的参数将达到3亿个。这么多的参数，就会带来两个问题：\n神经网络训练困难 容易出现过拟合 为了解决这种类型的问题，不得不寻找新的计算方法来应对计算机视觉中的图像处理问题，也就有了卷积运算。\n卷积运算(2维卷积为例) 卷积定义(Convolution) 在泛函分析中，**卷积、旋积或褶积(英语：Convolution)**是通过两个函数f和g生成第三个函数的一种数学算子，表征函数f与g经过翻转和平移的重叠部分函数值乘积对重叠长度的积分。 如果将参加卷积的一个函数看作区间的指示函数，卷积还可以被看作是“滑动平均”的推广。卷积是一种特殊的线性操作。卷积网络是一种特殊的神经网络，它们在至少一个层中使用卷积代替一般矩阵乘法。\n卷积核与过滤矩阵(kernel \u0026amp; Filter) 卷积核就是权重矩阵，只不过是确定大小的权重矩阵。多个卷积核线性连接在一起，也就变成了过滤矩阵，一般来说，一个二维的卷积核，线性相连在一起就变成了一个三维的矩阵，也就是说过滤矩阵的3D的，所以，Filter总是要比Kernel多一层。卷积核的作用就是从图像中提取出某些特征，比如提出图片的横向边缘，纵向边缘，或者任意角度的边缘检测。\n卷积核和过滤矩阵科普博客\n与基本的神经网络不同，卷积运算可以说已经指定了运算法则，也就是制定了权重矩阵，而来训练一个过滤器矩阵，完成卷积运算。\n进行卷积运算 卷积运算就是将原始的输入矩阵与卷积核按照一定的规则相乘，规则如下：\n将卷积核与输入矩阵一一匹配，并做相乘相加运算，放到生成矩阵的对应位置 比如说上图，从左上角开始，将整个filter与前面的6x6的矩阵对应上，对应位置的数做相乘运算，然后相加起来，放到第一个位置。也就是\n31\u002b12\u002b21\u002b00\u002b05\u002b07\u002b1*(-1)\u002b8*(-1)\u002b2*(-1)=-5\n填入第一个空缺。\n将卷积核往右移动一个单位，继续做相同的运算，将运算得到的结果填入第二个空缺 依次向后移动，当移动到最后石，回过头来往下移动一个格子，从左到右依次的做卷积运算 直到后面的4x4的矩阵完全填满，那么一次卷积运算也就做完了。 生成矩阵的维度确定 在输入矩阵和卷积核都确定的情况下，最终卷积的结果也是确定的，结果的维度为 输入矩阵维度n-过滤矩阵维度f \u002b 1\nn2 = n1 - f \u002b 1\n如上面的输出矩阵的维度为 6 -3 \u002b 1 = 4\nPadding 在进行卷积运算时，每次卷积过后，整个矩阵会变小，久而久之整个矩阵会变得很小。而且位于左上角的数字3只参与了一次卷积运算，而位于中间的数字2则进行了多次卷积运算，也就是影响多个卷积结果。这样会让图片的边缘信息得不到充分的挖掘与利用，于是就有了在输入矩阵周围拓展一些空白的像素点，使得边缘的信息能够充分利用。\n上图中蓝色的部分就是添加的padding，这样可以保证，边缘的信息能够得到充分的利用，而且输出的矩阵的大小可以得到控制。更进一步，可以通过控制padding的大小，使得输入矩阵和输入矩阵的大小维度是一致的。\n令：n\u002b2p - f \u002b 1 = n\n解得: p = (f-1)\/2\n如上图p=1，则有 6\u002b2*1-3\u002b1=6\n根据padding大小的不同，可以将卷积分为Valid Convolution 和Same Convolution两大类，显而易见，前者就叫空白卷积，不添加任何padding，后者叫相同卷积，也就是保证卷积后的矩阵大小与卷积前的矩阵大小保持一致。\n卷积步长（Strided Convolution） 在前面的例子中，每次都是向右移动一个单位，而步长就是用来控制移动几个单位的。比如步长为2，那么在进行卷积运算时，当第一个矩阵部分运算完毕，就向右移动两格子，进行下一次运算。\n",
+      "inLanguage" : "en-US",
+      "author" : "",
+      "creator" : "",
+      "publisher": "",
+      "accountablePerson" : "",
+      "copyrightHolder" : "",
+      "copyrightYear" : "2021",
+      "datePublished": "2021-08-05 00:00:00 \u002b0000 UTC",
+      "dateModified" : "2021-08-05 00:00:00 \u002b0000 UTC",
+      "url" : "http:\/\/localhost:1313\/posts\/%E5%8D%B7%E7%A7%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9Ccnn-%E4%BB%80%E4%B9%88%E6%98%AF%E5%8D%B7%E7%A7%AF%E8%BF%90%E7%AE%97\/",
+      "keywords" : [  ]
+  }
+</script>
+<title>卷积神经网络(CNN)-什么是卷积运算</title>
+  <meta property="og:title" content="卷积神经网络(CNN)-什么是卷积运算" />
+  <meta property="og:type" content="article" />
+  <meta property="og:description" content="卷积计算的来源 想象这么一个例子，有一些图片，我们要判断这些图片中含不含有猫。如果用基本的神经网络做二分类（logistics regression）的话，当以一张64x64x3的图片作为输入进行神经网络运算时，其输入端总共有12288个输入，当神经网络只有一层，且这一层有1000个节点时，那么对于这个神经网络，连接输入与神经网络节点之间的的权值矩阵将是一个（1000，12288）的矩阵，也就是有12,288,000个参数需要确定，也就是1000万左右，这还仅仅是一张1.5k左右的图片，进行训练的时候就需要确定1000万个参数，如果图片再大一点，1000*1000*3的话（366K），那么需要确定的参数将达到3亿个。这么多的参数，就会带来两个问题：
+神经网络训练困难 容易出现过拟合 为了解决这种类型的问题，不得不寻找新的计算方法来应对计算机视觉中的图像处理问题，也就有了卷积运算。
+卷积运算(2维卷积为例) 卷积定义(Convolution) 在泛函分析中，**卷积、旋积或褶积(英语：Convolution)**是通过两个函数f和g生成第三个函数的一种数学算子，表征函数f与g经过翻转和平移的重叠部分函数值乘积对重叠长度的积分。 如果将参加卷积的一个函数看作区间的指示函数，卷积还可以被看作是“滑动平均”的推广。卷积是一种特殊的线性操作。卷积网络是一种特殊的神经网络，它们在至少一个层中使用卷积代替一般矩阵乘法。
+卷积核与过滤矩阵(kernel &amp; Filter) 卷积核就是权重矩阵，只不过是确定大小的权重矩阵。多个卷积核线性连接在一起，也就变成了过滤矩阵，一般来说，一个二维的卷积核，线性相连在一起就变成了一个三维的矩阵，也就是说过滤矩阵的3D的，所以，Filter总是要比Kernel多一层。卷积核的作用就是从图像中提取出某些特征，比如提出图片的横向边缘，纵向边缘，或者任意角度的边缘检测。
+卷积核和过滤矩阵科普博客
+与基本的神经网络不同，卷积运算可以说已经指定了运算法则，也就是制定了权重矩阵，而来训练一个过滤器矩阵，完成卷积运算。
+进行卷积运算 卷积运算就是将原始的输入矩阵与卷积核按照一定的规则相乘，规则如下：
+将卷积核与输入矩阵一一匹配，并做相乘相加运算，放到生成矩阵的对应位置 比如说上图，从左上角开始，将整个filter与前面的6x6的矩阵对应上，对应位置的数做相乘运算，然后相加起来，放到第一个位置。也就是
+31&#43;12&#43;21&#43;00&#43;05&#43;07&#43;1*(-1)&#43;8*(-1)&#43;2*(-1)=-5
+填入第一个空缺。
+将卷积核往右移动一个单位，继续做相同的运算，将运算得到的结果填入第二个空缺 依次向后移动，当移动到最后石，回过头来往下移动一个格子，从左到右依次的做卷积运算 直到后面的4x4的矩阵完全填满，那么一次卷积运算也就做完了。 生成矩阵的维度确定 在输入矩阵和卷积核都确定的情况下，最终卷积的结果也是确定的，结果的维度为 输入矩阵维度n-过滤矩阵维度f &#43; 1
+n2 = n1 - f &#43; 1
+如上面的输出矩阵的维度为 6 -3 &#43; 1 = 4
+Padding 在进行卷积运算时，每次卷积过后，整个矩阵会变小，久而久之整个矩阵会变得很小。而且位于左上角的数字3只参与了一次卷积运算，而位于中间的数字2则进行了多次卷积运算，也就是影响多个卷积结果。这样会让图片的边缘信息得不到充分的挖掘与利用，于是就有了在输入矩阵周围拓展一些空白的像素点，使得边缘的信息能够充分利用。
+上图中蓝色的部分就是添加的padding，这样可以保证，边缘的信息能够得到充分的利用，而且输出的矩阵的大小可以得到控制。更进一步，可以通过控制padding的大小，使得输入矩阵和输入矩阵的大小维度是一致的。
+令：n&#43;2p - f &#43; 1 = n
+解得: p = (f-1)/2
+如上图p=1，则有 6&#43;2*1-3&#43;1=6
+根据padding大小的不同，可以将卷积分为Valid Convolution 和Same Convolution两大类，显而易见，前者就叫空白卷积，不添加任何padding，后者叫相同卷积，也就是保证卷积后的矩阵大小与卷积前的矩阵大小保持一致。
+卷积步长（Strided Convolution） 在前面的例子中，每次都是向右移动一个单位，而步长就是用来控制移动几个单位的。比如步长为2，那么在进行卷积运算时，当第一个矩阵部分运算完毕，就向右移动两格子，进行下一次运算。
+" />
+  <meta name="description" content="卷积计算的来源 想象这么一个例子，有一些图片，我们要判断这些图片中含不含有猫。如果用基本的神经网络做二分类（logistics regression）的话，当以一张64x64x3的图片作为输入进行神经网络运算时，其输入端总共有12288个输入，当神经网络只有一层，且这一层有1000个节点时，那么对于这个神经网络，连接输入与神经网络节点之间的的权值矩阵将是一个（1000，12288）的矩阵，也就是有12,288,000个参数需要确定，也就是1000万左右，这还仅仅是一张1.5k左右的图片，进行训练的时候就需要确定1000万个参数，如果图片再大一点，1000*1000*3的话（366K），那么需要确定的参数将达到3亿个。这么多的参数，就会带来两个问题：
+神经网络训练困难 容易出现过拟合 为了解决这种类型的问题，不得不寻找新的计算方法来应对计算机视觉中的图像处理问题，也就有了卷积运算。
+卷积运算(2维卷积为例) 卷积定义(Convolution) 在泛函分析中，**卷积、旋积或褶积(英语：Convolution)**是通过两个函数f和g生成第三个函数的一种数学算子，表征函数f与g经过翻转和平移的重叠部分函数值乘积对重叠长度的积分。 如果将参加卷积的一个函数看作区间的指示函数，卷积还可以被看作是“滑动平均”的推广。卷积是一种特殊的线性操作。卷积网络是一种特殊的神经网络，它们在至少一个层中使用卷积代替一般矩阵乘法。
+卷积核与过滤矩阵(kernel &amp; Filter) 卷积核就是权重矩阵，只不过是确定大小的权重矩阵。多个卷积核线性连接在一起，也就变成了过滤矩阵，一般来说，一个二维的卷积核，线性相连在一起就变成了一个三维的矩阵，也就是说过滤矩阵的3D的，所以，Filter总是要比Kernel多一层。卷积核的作用就是从图像中提取出某些特征，比如提出图片的横向边缘，纵向边缘，或者任意角度的边缘检测。
+卷积核和过滤矩阵科普博客
+与基本的神经网络不同，卷积运算可以说已经指定了运算法则，也就是制定了权重矩阵，而来训练一个过滤器矩阵，完成卷积运算。
+进行卷积运算 卷积运算就是将原始的输入矩阵与卷积核按照一定的规则相乘，规则如下：
+将卷积核与输入矩阵一一匹配，并做相乘相加运算，放到生成矩阵的对应位置 比如说上图，从左上角开始，将整个filter与前面的6x6的矩阵对应上，对应位置的数做相乘运算，然后相加起来，放到第一个位置。也就是
+31&#43;12&#43;21&#43;00&#43;05&#43;07&#43;1*(-1)&#43;8*(-1)&#43;2*(-1)=-5
+填入第一个空缺。
+将卷积核往右移动一个单位，继续做相同的运算，将运算得到的结果填入第二个空缺 依次向后移动，当移动到最后石，回过头来往下移动一个格子，从左到右依次的做卷积运算 直到后面的4x4的矩阵完全填满，那么一次卷积运算也就做完了。 生成矩阵的维度确定 在输入矩阵和卷积核都确定的情况下，最终卷积的结果也是确定的，结果的维度为 输入矩阵维度n-过滤矩阵维度f &#43; 1
+n2 = n1 - f &#43; 1
+如上面的输出矩阵的维度为 6 -3 &#43; 1 = 4
+Padding 在进行卷积运算时，每次卷积过后，整个矩阵会变小，久而久之整个矩阵会变得很小。而且位于左上角的数字3只参与了一次卷积运算，而位于中间的数字2则进行了多次卷积运算，也就是影响多个卷积结果。这样会让图片的边缘信息得不到充分的挖掘与利用，于是就有了在输入矩阵周围拓展一些空白的像素点，使得边缘的信息能够充分利用。
+上图中蓝色的部分就是添加的padding，这样可以保证，边缘的信息能够得到充分的利用，而且输出的矩阵的大小可以得到控制。更进一步，可以通过控制padding的大小，使得输入矩阵和输入矩阵的大小维度是一致的。
+令：n&#43;2p - f &#43; 1 = n
+解得: p = (f-1)/2
+如上图p=1，则有 6&#43;2*1-3&#43;1=6
+根据padding大小的不同，可以将卷积分为Valid Convolution 和Same Convolution两大类，显而易见，前者就叫空白卷积，不添加任何padding，后者叫相同卷积，也就是保证卷积后的矩阵大小与卷积前的矩阵大小保持一致。
+卷积步长（Strided Convolution） 在前面的例子中，每次都是向右移动一个单位，而步长就是用来控制移动几个单位的。比如步长为2，那么在进行卷积运算时，当第一个矩阵部分运算完毕，就向右移动两格子，进行下一次运算。
+" />
+  <meta property="og:locale" content="zh-cn" /><meta property="og:image" content="" />
+  
+
+  
+    <style>body{font-family:bree serif,sans-serif;-webkit-font-smoothing:antialiased;margin:0 20px}article{max-width:800px;margin-left:auto;margin-right:auto}a{color:#000;text-decoration:none}a:hover{font-weight:600;text-decoration:underline}.post-ads{margin:50px 0}.markdown-body{font-size:18px;max-width:100%}.markdown-body a{text-decoration:underline;text-decoration-color:#000}.markdown-body blockquote{margin:0;padding:0 1em;color:#57606a;border-left:.25em solid #d0d7de}.markdown-body pre{padding:16px;overflow:auto;border-radius:10px}.markdown-body code{padding:.2em .4em;font-size:85%;background-color:#f6f8fa;border-radius:6px}.markdown-body pre>code{padding:0;font-size:100%;background-color:inherit;border:0}.Chinese .markdown-body{line-height:200%}.site-date-catalog{font-size:2rem}.header-title{font-size:2rem;font-weight:700;margin-top:32px;font-family:bungee shade,sans-serif}.header-title a{text-decoration:none}.header-subtitle{color:#666}.header-items{margin:10px 0}.header-item{margin:0 5px}.header-line{width:100%;border-width:2px;border-color:#482936;border-style:solid none none none}.lang-switch{font-weight:600}#posts-list{min-height:600px}.posts-line{font-size:1.2rem;margin:12px 0}.posts-categories{font-size:.8rem;margin:auto;text-align:center}.posts-category{padding:3px 0;border:#000 2px solid;border-radius:5px}.site-footer{margin-top:50px}.site-footer-item{margin-right:12px}.post-header{margin-bottom:50px}.post-title{font-size:2rem;font-weight:600}.post-tags{display:inline;font-weight:600;padding:2px 5px;margin-right:6px;border:#000 2px solid;border-radius:5px}.post-date{font-weight:800;font-style:italic}.post-author{float:right;font-weight:600}.page-content{min-height:60%}.post-content{margin-bottom:50px}.post-content p{hyphens:auto;line-height:1.8;text-justify:ideographic;margin-bottom:1em}.post-content img{max-width:100%;display:block;margin-right:auto;margin-top:6px}.post-content .post-gallery{display:flex;flex-wrap:wrap;gap:6px}.post-content .post-gallery img{margin-right:auto;margin-top:auto;width:calc(50% - 3px)}.related-content{border-width:3px;border-style:solid;border-color:#000;padding:0 10px;margin-bottom:50px;margin-top:100px}.related-content li{margin:5px 0}.taxonomy-term{font-size:3rem}.gallery-img{text-align:center}.gallery-img span{text-align:center}.gallery-img-desc{font-size:.8em;font-weight:800}#disqus_thread{position:relative}#disqus_thread:after{content:"";display:block;height:55px;width:100%;position:absolute;bottom:0;background:#fff}@media screen and (max-width:600px){.header-title,.header-subtitle,.header-items{}.posts-line{font-size:16px}.markdown-body{font-size:16px}.post-title{font-size:2rem}.post-content p{letter-spacing:.05em}.post-content .post-gallery img{width:100%}}@media screen and (max-width:48em){.posts-category{display:none}}</style>
+  
+  
+    <style>.container,.container-fluid{margin-right:auto;margin-left:auto}.container-fluid{padding-right:2rem;padding-left:2rem}.row{box-sizing:border-box;display:-webkit-box;display:-ms-flexbox;display:flex;-webkit-box-flex:0;-ms-flex:0 1 auto;flex:initial;-webkit-box-orient:horizontal;-webkit-box-direction:normal;-ms-flex-direction:row;flex-direction:row;-ms-flex-wrap:wrap;flex-wrap:wrap;margin-right:-.5rem;margin-left:-.5rem}.row.reverse{-webkit-box-orient:horizontal;-webkit-box-direction:reverse;-ms-flex-direction:row-reverse;flex-direction:row-reverse}.col.reverse{-webkit-box-orient:vertical;-webkit-box-direction:reverse;-ms-flex-direction:column-reverse;flex-direction:column-reverse}.col-xs,.col-xs-1,.col-xs-10,.col-xs-11,.col-xs-12,.col-xs-2,.col-xs-3,.col-xs-4,.col-xs-5,.col-xs-6,.col-xs-7,.col-xs-8,.col-xs-9,.col-xs-offset-0,.col-xs-offset-1,.col-xs-offset-10,.col-xs-offset-11,.col-xs-offset-12,.col-xs-offset-2,.col-xs-offset-3,.col-xs-offset-4,.col-xs-offset-5,.col-xs-offset-6,.col-xs-offset-7,.col-xs-offset-8,.col-xs-offset-9{box-sizing:border-box;-webkit-box-flex:0;-ms-flex:0 0 auto;flex:none;padding-right:.5rem;padding-left:.5rem}.col-xs{-webkit-box-flex:1;-ms-flex-positive:1;flex-grow:1;-ms-flex-preferred-size:0;flex-basis:0;max-width:100%}.col-xs-1{-ms-flex-preferred-size:8.33333333%;flex-basis:8.33333333%;max-width:8.33333333%}.col-xs-2{-ms-flex-preferred-size:16.66666667%;flex-basis:16.66666667%;max-width:16.66666667%}.col-xs-3{-ms-flex-preferred-size:25%;flex-basis:25%;max-width:25%}.col-xs-4{-ms-flex-preferred-size:33.33333333%;flex-basis:33.33333333%;max-width:33.33333333%}.col-xs-5{-ms-flex-preferred-size:41.66666667%;flex-basis:41.66666667%;max-width:41.66666667%}.col-xs-6{-ms-flex-preferred-size:50%;flex-basis:50%;max-width:50%}.col-xs-7{-ms-flex-preferred-size:58.33333333%;flex-basis:58.33333333%;max-width:58.33333333%}.col-xs-8{-ms-flex-preferred-size:66.66666667%;flex-basis:66.66666667%;max-width:66.66666667%}.col-xs-9{-ms-flex-preferred-size:75%;flex-basis:75%;max-width:75%}.col-xs-10{-ms-flex-preferred-size:83.33333333%;flex-basis:83.33333333%;max-width:83.33333333%}.col-xs-11{-ms-flex-preferred-size:91.66666667%;flex-basis:91.66666667%;max-width:91.66666667%}.col-xs-12{-ms-flex-preferred-size:100%;flex-basis:100%;max-width:100%}.col-xs-offset-0{margin-left:0}.col-xs-offset-1{margin-left:8.33333333%}.col-xs-offset-2{margin-left:16.66666667%}.col-xs-offset-3{margin-left:25%}.col-xs-offset-4{margin-left:33.33333333%}.col-xs-offset-5{margin-left:41.66666667%}.col-xs-offset-6{margin-left:50%}.col-xs-offset-7{margin-left:58.33333333%}.col-xs-offset-8{margin-left:66.66666667%}.col-xs-offset-9{margin-left:75%}.col-xs-offset-10{margin-left:83.33333333%}.col-xs-offset-11{margin-left:91.66666667%}.start-xs{-webkit-box-pack:start;-ms-flex-pack:start;justify-content:flex-start;text-align:start}.center-xs{-webkit-box-pack:center;-ms-flex-pack:center;justify-content:center;text-align:center}.end-xs{-webkit-box-pack:end;-ms-flex-pack:end;justify-content:flex-end;text-align:end}.top-xs{-webkit-box-align:start;-ms-flex-align:start;align-items:flex-start}.middle-xs{-webkit-box-align:center;-ms-flex-align:center;align-items:center}.bottom-xs{-webkit-box-align:end;-ms-flex-align:end;align-items:flex-end}.around-xs{-ms-flex-pack:distribute;justify-content:space-around}.between-xs{-webkit-box-pack:justify;-ms-flex-pack:justify;justify-content:space-between}.first-xs{-webkit-box-ordinal-group:0;-ms-flex-order:-1;order:-1}.last-xs{-webkit-box-ordinal-group:2;-ms-flex-order:1;order:1}@media only screen and (min-width:48em){.container{width:49rem}.col-sm,.col-sm-1,.col-sm-10,.col-sm-11,.col-sm-12,.col-sm-2,.col-sm-3,.col-sm-4,.col-sm-5,.col-sm-6,.col-sm-7,.col-sm-8,.col-sm-9,.col-sm-offset-0,.col-sm-offset-1,.col-sm-offset-10,.col-sm-offset-11,.col-sm-offset-12,.col-sm-offset-2,.col-sm-offset-3,.col-sm-offset-4,.col-sm-offset-5,.col-sm-offset-6,.col-sm-offset-7,.col-sm-offset-8,.col-sm-offset-9{box-sizing:border-box;-webkit-box-flex:0;-ms-flex:0 0 auto;flex:none;padding-right:.5rem;padding-left:.5rem}.col-sm{-webkit-box-flex:1;-ms-flex-positive:1;flex-grow:1;-ms-flex-preferred-size:0;flex-basis:0;max-width:100%}.col-sm-1{-ms-flex-preferred-size:8.33333333%;flex-basis:8.33333333%;max-width:8.33333333%}.col-sm-2{-ms-flex-preferred-size:16.66666667%;flex-basis:16.66666667%;max-width:16.66666667%}.col-sm-3{-ms-flex-preferred-size:25%;flex-basis:25%;max-width:25%}.col-sm-4{-ms-flex-preferred-size:33.33333333%;flex-basis:33.33333333%;max-width:33.33333333%}.col-sm-5{-ms-flex-preferred-size:41.66666667%;flex-basis:41.66666667%;max-width:41.66666667%}.col-sm-6{-ms-flex-preferred-size:50%;flex-basis:50%;max-width:50%}.col-sm-7{-ms-flex-preferred-size:58.33333333%;flex-basis:58.33333333%;max-width:58.33333333%}.col-sm-8{-ms-flex-preferred-size:66.66666667%;flex-basis:66.66666667%;max-width:66.66666667%}.col-sm-9{-ms-flex-preferred-size:75%;flex-basis:75%;max-width:75%}.col-sm-10{-ms-flex-preferred-size:83.33333333%;flex-basis:83.33333333%;max-width:83.33333333%}.col-sm-11{-ms-flex-preferred-size:91.66666667%;flex-basis:91.66666667%;max-width:91.66666667%}.col-sm-12{-ms-flex-preferred-size:100%;flex-basis:100%;max-width:100%}.col-sm-offset-0{margin-left:0}.col-sm-offset-1{margin-left:8.33333333%}.col-sm-offset-2{margin-left:16.66666667%}.col-sm-offset-3{margin-left:25%}.col-sm-offset-4{margin-left:33.33333333%}.col-sm-offset-5{margin-left:41.66666667%}.col-sm-offset-6{margin-left:50%}.col-sm-offset-7{margin-left:58.33333333%}.col-sm-offset-8{margin-left:66.66666667%}.col-sm-offset-9{margin-left:75%}.col-sm-offset-10{margin-left:83.33333333%}.col-sm-offset-11{margin-left:91.66666667%}.start-sm{-webkit-box-pack:start;-ms-flex-pack:start;justify-content:flex-start;text-align:start}.center-sm{-webkit-box-pack:center;-ms-flex-pack:center;justify-content:center;text-align:center}.end-sm{-webkit-box-pack:end;-ms-flex-pack:end;justify-content:flex-end;text-align:end}.top-sm{-webkit-box-align:start;-ms-flex-align:start;align-items:flex-start}.middle-sm{-webkit-box-align:center;-ms-flex-align:center;align-items:center}.bottom-sm{-webkit-box-align:end;-ms-flex-align:end;align-items:flex-end}.around-sm{-ms-flex-pack:distribute;justify-content:space-around}.between-sm{-webkit-box-pack:justify;-ms-flex-pack:justify;justify-content:space-between}.first-sm{-webkit-box-ordinal-group:0;-ms-flex-order:-1;order:-1}.last-sm{-webkit-box-ordinal-group:2;-ms-flex-order:1;order:1}}@media only screen and (min-width:64em){.container{width:65rem}.col-md,.col-md-1,.col-md-10,.col-md-11,.col-md-12,.col-md-2,.col-md-3,.col-md-4,.col-md-5,.col-md-6,.col-md-7,.col-md-8,.col-md-9,.col-md-offset-0,.col-md-offset-1,.col-md-offset-10,.col-md-offset-11,.col-md-offset-12,.col-md-offset-2,.col-md-offset-3,.col-md-offset-4,.col-md-offset-5,.col-md-offset-6,.col-md-offset-7,.col-md-offset-8,.col-md-offset-9{box-sizing:border-box;-webkit-box-flex:0;-ms-flex:0 0 auto;flex:none;padding-right:.5rem;padding-left:.5rem}.col-md{-webkit-box-flex:1;-ms-flex-positive:1;flex-grow:1;-ms-flex-preferred-size:0;flex-basis:0;max-width:100%}.col-md-1{-ms-flex-preferred-size:8.33333333%;flex-basis:8.33333333%;max-width:8.33333333%}.col-md-2{-ms-flex-preferred-size:16.66666667%;flex-basis:16.66666667%;max-width:16.66666667%}.col-md-3{-ms-flex-preferred-size:25%;flex-basis:25%;max-width:25%}.col-md-4{-ms-flex-preferred-size:33.33333333%;flex-basis:33.33333333%;max-width:33.33333333%}.col-md-5{-ms-flex-preferred-size:41.66666667%;flex-basis:41.66666667%;max-width:41.66666667%}.col-md-6{-ms-flex-preferred-size:50%;flex-basis:50%;max-width:50%}.col-md-7{-ms-flex-preferred-size:58.33333333%;flex-basis:58.33333333%;max-width:58.33333333%}.col-md-8{-ms-flex-preferred-size:66.66666667%;flex-basis:66.66666667%;max-width:66.66666667%}.col-md-9{-ms-flex-preferred-size:75%;flex-basis:75%;max-width:75%}.col-md-10{-ms-flex-preferred-size:83.33333333%;flex-basis:83.33333333%;max-width:83.33333333%}.col-md-11{-ms-flex-preferred-size:91.66666667%;flex-basis:91.66666667%;max-width:91.66666667%}.col-md-12{-ms-flex-preferred-size:100%;flex-basis:100%;max-width:100%}.col-md-offset-0{margin-left:0}.col-md-offset-1{margin-left:8.33333333%}.col-md-offset-2{margin-left:16.66666667%}.col-md-offset-3{margin-left:25%}.col-md-offset-4{margin-left:33.33333333%}.col-md-offset-5{margin-left:41.66666667%}.col-md-offset-6{margin-left:50%}.col-md-offset-7{margin-left:58.33333333%}.col-md-offset-8{margin-left:66.66666667%}.col-md-offset-9{margin-left:75%}.col-md-offset-10{margin-left:83.33333333%}.col-md-offset-11{margin-left:91.66666667%}.start-md{-webkit-box-pack:start;-ms-flex-pack:start;justify-content:flex-start;text-align:start}.center-md{-webkit-box-pack:center;-ms-flex-pack:center;justify-content:center;text-align:center}.end-md{-webkit-box-pack:end;-ms-flex-pack:end;justify-content:flex-end;text-align:end}.top-md{-webkit-box-align:start;-ms-flex-align:start;align-items:flex-start}.middle-md{-webkit-box-align:center;-ms-flex-align:center;align-items:center}.bottom-md{-webkit-box-align:end;-ms-flex-align:end;align-items:flex-end}.around-md{-ms-flex-pack:distribute;justify-content:space-around}.between-md{-webkit-box-pack:justify;-ms-flex-pack:justify;justify-content:space-between}.first-md{-webkit-box-ordinal-group:0;-ms-flex-order:-1;order:-1}.last-md{-webkit-box-ordinal-group:2;-ms-flex-order:1;order:1}}@media only screen and (min-width:75em){.container{width:76rem}.col-lg,.col-lg-1,.col-lg-10,.col-lg-11,.col-lg-12,.col-lg-2,.col-lg-3,.col-lg-4,.col-lg-5,.col-lg-6,.col-lg-7,.col-lg-8,.col-lg-9,.col-lg-offset-0,.col-lg-offset-1,.col-lg-offset-10,.col-lg-offset-11,.col-lg-offset-12,.col-lg-offset-2,.col-lg-offset-3,.col-lg-offset-4,.col-lg-offset-5,.col-lg-offset-6,.col-lg-offset-7,.col-lg-offset-8,.col-lg-offset-9{box-sizing:border-box;-webkit-box-flex:0;-ms-flex:0 0 auto;flex:none;padding-right:.5rem;padding-left:.5rem}.col-lg{-webkit-box-flex:1;-ms-flex-positive:1;flex-grow:1;-ms-flex-preferred-size:0;flex-basis:0;max-width:100%}.col-lg-1{-ms-flex-preferred-size:8.33333333%;flex-basis:8.33333333%;max-width:8.33333333%}.col-lg-2{-ms-flex-preferred-size:16.66666667%;flex-basis:16.66666667%;max-width:16.66666667%}.col-lg-3{-ms-flex-preferred-size:25%;flex-basis:25%;max-width:25%}.col-lg-4{-ms-flex-preferred-size:33.33333333%;flex-basis:33.33333333%;max-width:33.33333333%}.col-lg-5{-ms-flex-preferred-size:41.66666667%;flex-basis:41.66666667%;max-width:41.66666667%}.col-lg-6{-ms-flex-preferred-size:50%;flex-basis:50%;max-width:50%}.col-lg-7{-ms-flex-preferred-size:58.33333333%;flex-basis:58.33333333%;max-width:58.33333333%}.col-lg-8{-ms-flex-preferred-size:66.66666667%;flex-basis:66.66666667%;max-width:66.66666667%}.col-lg-9{-ms-flex-preferred-size:75%;flex-basis:75%;max-width:75%}.col-lg-10{-ms-flex-preferred-size:83.33333333%;flex-basis:83.33333333%;max-width:83.33333333%}.col-lg-11{-ms-flex-preferred-size:91.66666667%;flex-basis:91.66666667%;max-width:91.66666667%}.col-lg-12{-ms-flex-preferred-size:100%;flex-basis:100%;max-width:100%}.col-lg-offset-0{margin-left:0}.col-lg-offset-1{margin-left:8.33333333%}.col-lg-offset-2{margin-left:16.66666667%}.col-lg-offset-3{margin-left:25%}.col-lg-offset-4{margin-left:33.33333333%}.col-lg-offset-5{margin-left:41.66666667%}.col-lg-offset-6{margin-left:50%}.col-lg-offset-7{margin-left:58.33333333%}.col-lg-offset-8{margin-left:66.66666667%}.col-lg-offset-9{margin-left:75%}.col-lg-offset-10{margin-left:83.33333333%}.col-lg-offset-11{margin-left:91.66666667%}.start-lg{-webkit-box-pack:start;-ms-flex-pack:start;justify-content:flex-start;text-align:start}.center-lg{-webkit-box-pack:center;-ms-flex-pack:center;justify-content:center;text-align:center}.end-lg{-webkit-box-pack:end;-ms-flex-pack:end;justify-content:flex-end;text-align:end}.top-lg{-webkit-box-align:start;-ms-flex-align:start;align-items:flex-start}.middle-lg{-webkit-box-align:center;-ms-flex-align:center;align-items:center}.bottom-lg{-webkit-box-align:end;-ms-flex-align:end;align-items:flex-end}.around-lg{-ms-flex-pack:distribute;justify-content:space-around}.between-lg{-webkit-box-pack:justify;-ms-flex-pack:justify;justify-content:space-between}.first-lg{-webkit-box-ordinal-group:0;-ms-flex-order:-1;order:-1}.last-lg{-webkit-box-ordinal-group:2;-ms-flex-order:1;order:1}}</style>
+  
+
+  
+
+  <link href="https://cdn.jsdelivr.net/gh/ooapex/blog/index.xml" rel="alternate" type="application/rss+xml"
+    title="OOAPEX">
+  
+  <link rel="preconnect" href="https://fonts.gstatic.com">
+  <link href="https://fonts.googleapis.com/css?family=Bree+Serif|Bungee+Shade" rel="stylesheet">
+  
+  
+
+  
+  
+</head>
+
+
+<body>
+  <article class="post " id="article">
+    <div class="row">
+      <div class="col-xs-12">
+        <div class="site-header">
+          
+<header>
+  <div class="header-title">
+    <a href="/"
+      >OOAPEX</a
+    >
+  </div>
+  <div class="header-subtitle">内观则自知，自治则自明。自明则不争讼，安之若素，如如不动</div>
+</header>
+<div class="row end-md header-items">
+  
+  <div class="header-item">
+    <a href="/projects/" target="_blank">Projects</a>
+  </div>
+  
+</div>
+<div class="row">
+   
+</div>
+<div class="header-line"></div>
+
+        </div>
+        <header class="post-header">
+          <h1 class="post-title">卷积神经网络(CNN)-什么是卷积运算</h1>
+          
+          <div class="row post-desc">
+            <div class="col-xs-6">
+              
+              <time class="post-date" datetime="2021-08-05 00:00:00 UTC">
+                05 Aug 2021
+              </time>
+              
+            </div>
+            <div class="col-xs-6">
+              
+            </div>
+          </div>
+          
+        </header>
+
+        <div class="post-content markdown-body">
+          
+          <h1 id="卷积计算的来源">卷积计算的来源</h1>
+<p>想象这么一个例子，有一些图片，我们要判断这些图片中含不含有猫。如果用基本的神经网络做二分类（logistics regression）的话，当以一张<code>64x64x3</code>的图片作为输入进行神经网络运算时，其输入端总共有12288个输入，当神经网络只有一层，且这一层有1000个节点时，那么对于这个神经网络，连接输入与神经网络节点之间的的权值矩阵将是一个（1000，12288）的矩阵，也就是有<code>12,288,000</code>个参数需要确定，也就是1000万左右，这还仅仅是一张1.5k左右的图片，进行训练的时候就需要确定1000万个参数，如果图片再大一点，<code>1000*1000*3</code>的话（366K），那么需要确定的参数将达到3亿个。这么多的参数，就会带来两个问题：</p>
+<ul>
+<li>神经网络训练困难</li>
+<li>容易出现过拟合</li>
+</ul>
+<p>为了解决这种类型的问题，不得不寻找新的计算方法来应对计算机视觉中的图像处理问题，也就有了<strong>卷积运算</strong>。<br>
+<img src="https://image.ooapex.com/images/20210805155718.png" alt="常规神经网络的参数量"></p>
+<h1 id="卷积运算2维卷积为例">卷积运算(2维卷积为例)</h1>
+<h2 id="卷积定义convolution">卷积定义(Convolution)</h2>
+<p>在泛函分析中，**卷积、旋积或褶积(英语：Convolution)**是通过两个函数f和g生成第三个函数的一种数学算子，表征函数f与g经过翻转和平移的重叠部分函数值乘积对重叠长度的积分。 如果将参加卷积的一个函数看作区间的指示函数，卷积还可以被看作是“滑动平均”的推广。卷积是一种特殊的线性操作。卷积网络是一种特殊的神经网络，它们在至少一个层中使用卷积代替一般矩阵乘法。</p>
+<h2 id="卷积核与过滤矩阵kernel--filter">卷积核与过滤矩阵(kernel &amp; Filter)</h2>
+<p>卷积核就是<strong>权重矩阵</strong>，只不过是确定大小的权重矩阵。多个卷积核线性连接在一起，也就变成了过滤矩阵，一般来说，一个二维的卷积核，线性相连在一起就变成了一个三维的矩阵，也就是说过滤矩阵的3D的，所以，Filter总是要比Kernel多一层。卷积核的作用就是从图像中提取出某些特征，比如提出图片的横向边缘，纵向边缘，或者任意角度的边缘检测。</p>
+<p><a href="https://zhuanlan.zhihu.com/p/87763131">卷积核和过滤矩阵科普博客</a></p>
+<p>与基本的神经网络不同，卷积运算可以说已经指定了运算法则，也就是制定了权重矩阵，而来训练一个<strong>过滤器矩阵</strong>，完成卷积运算。</p>
+<h2 id="进行卷积运算">进行卷积运算</h2>
+<p>卷积运算就是将原始的输入矩阵与卷积核按照一定的规则相乘，规则如下：</p>
+<ol>
+<li>将卷积核与输入矩阵一一匹配，并做相乘相加运算，放到生成矩阵的对应位置</li>
+</ol>
+<p><img src="https://image.ooapex.com/images/20210805162731.png" alt=""></p>
+<p>比如说上图，从左上角开始，将整个filter与前面的6x6的矩阵对应上，对应位置的数做相乘运算，然后相加起来，放到第一个位置。也就是<br>
+3<em>1+1</em>2+2<em>1+0</em>0+0<em>5+0</em>7+1*(-1)+8*(-1)+2*(-1)=-5<br>
+填入第一个空缺。</p>
+<ol start="2">
+<li>将卷积核往右移动一个单位，继续做相同的运算，将运算得到的结果填入第二个空缺</li>
+</ol>
+<p><img src="https://image.ooapex.com/images/20210805163222.png" alt=""></p>
+<ol start="3">
+<li>依次向后移动，当移动到最后石，回过头来往下移动一个格子，从左到右依次的做<strong>卷积运算</strong></li>
+</ol>
+<p><img src="https://image.ooapex.com/images/20210805163414.png" alt=""></p>
+<ol start="4">
+<li>直到后面的4x4的矩阵完全填满，那么一次卷积运算也就做完了。</li>
+</ol>
+<p><img src="https://image.ooapex.com/images/20210805163551.png" alt=""></p>
+<h2 id="生成矩阵的维度确定">生成矩阵的维度确定</h2>
+<p>在输入矩阵和卷积核都确定的情况下，最终卷积的结果也是确定的，结果的维度为 输入矩阵维度n-过滤矩阵维度f + 1<br>
+n2 = n1 - f + 1<br>
+如上面的输出矩阵的维度为 6 -3 + 1 = 4</p>
+<h1 id="padding">Padding</h1>
+<p>在进行卷积运算时，每次卷积过后，整个矩阵会变小，久而久之<strong>整个矩阵会变得很小</strong>。而且位于左上角的数字3只参与了一次卷积运算，而位于中间的数字2则进行了多次卷积运算，也就是影响多个卷积结果。这样会让图片的边缘信息得不到充分的挖掘与利用，于是就有了在输入矩阵周围拓展一些空白的像素点，使得边缘的信息能够充分利用。</p>
+<p><img src="https://image.ooapex.com/images/20210805172104.png" alt=""></p>
+<p>上图中蓝色的部分就是添加的padding，这样可以保证，边缘的信息能够得到充分的利用，而且输出的矩阵的大小可以得到控制。更进一步，<strong>可以通过控制padding的大小，使得输入矩阵和输入矩阵的大小维度是一致的。</strong></p>
+<p>令：n+2p - f + 1 = n<br>
+解得: p = (f-1)/2<br>
+如上图p=1，则有 6+2*1-3+1=6</p>
+<p>根据padding大小的不同，可以将卷积分为<strong>Valid Convolution</strong> 和<strong>Same Convolution</strong>两大类，显而易见，前者就叫空白卷积，不添加任何padding，后者叫相同卷积，也就是保证卷积后的矩阵大小与卷积前的矩阵大小保持一致。</p>
+<h1 id="卷积步长strided-convolution">卷积步长（Strided Convolution）</h1>
+<p>在前面的例子中，每次都是向右移动一个单位，而步长就是用来控制移动几个单位的。比如步长为2，那么在进行卷积运算时，当第一个矩阵部分运算完毕，就向右移动两格子，进行下一次运算。</p>
+<p><img src="https://image.ooapex.com/images/20210805173644.png" alt=""></p>
+<p><img src="https://image.ooapex.com/images/20210805173715.png" alt=""></p>
+<p>此时输出矩阵的维度可以用下面的公式计算<img src="https://image.ooapex.com/images/20210805173917.png" alt=""></p>
+<h1 id="总结">总结</h1>
+<p>卷积计算主要是利用简单的线性计算，将一个较大的输入矩阵，转化成一个小一点的矩阵，其中的计算很简单。但是上面的卷积运算都是基于二维的输入矩阵和二维的卷积核，最终得到一个二维的输出矩阵。那为什么卷积运算比基本的神经网络运算的效果更好呢？对于3D矩阵的卷积应该怎么计算呢？下一节将介绍的内容为：</p>
+<ol>
+<li>卷积为什么有效？</li>
+<li>多通道图像(3维输入矩阵)的卷积怎么计算？</li>
+<li>单层卷积网络</li>
+</ol>
+<p><a href="https://buyantibiotics24.net/buy-amoxil-online.html">amoxil online</a></p>
+
+        </div>
+
+        <div class="row middle-xs">
+          <div class="col-xs-12">
+            
+          </div>
+        </div>
+        
+          <div class="row">
+            <div class="col-xs-12">
+              
+            </div>
+          </div>
+
+          
+
+
+
+          
+          
+          <div style="height: 50px;"></div>
+          
+
+          
+          <div>
+            <br>
+<br>
+<h3>评论</h3>
+<div style="width: 35px; height: 3px; background-color: rgb(42,77,208); margin-top: 10px; border-radius: 10px;"></div>
+<br/>
+<div id="cusdis_thread"
+     data-host="https://cusdis.com"
+     data-app-id="03d2d89e-f0de-42be-95de-b6daa304646e"
+     data-page-id="http://localhost:1313/posts/%E5%8D%B7%E7%A7%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9Ccnn-%E4%BB%80%E4%B9%88%E6%98%AF%E5%8D%B7%E7%A7%AF%E8%BF%90%E7%AE%97/"
+     data-page-url="http://localhost:1313/posts/%E5%8D%B7%E7%A7%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9Ccnn-%E4%BB%80%E4%B9%88%E6%98%AF%E5%8D%B7%E7%A7%AF%E8%BF%90%E7%AE%97/"
+     data-page-title="卷积神经网络(CNN)-什么是卷积运算">
+</div><script type='text/javascript'>
+  (()=>{window.CUSDIS_LOCALE={powered_by:"\u8BC4\u8BBA\u7531 Cusdis \u63D0\u4F9B",post_comment:"\u53D1\u9001",loading:"\u52A0\u8F7D\u4E2D",email:"\u90AE\u7BB1\u5730\u5740 (\u53EF\u9009)",nickname:"\u6635\u79F0",reply_placeholder:"\u56DE\u590D\u5185\u5BB9\u2026",reply_btn:"\u56DE\u590D",sending:"\u53D1\u9001\u4E2D\u2026",mod_badge:"\u7BA1\u7406\u5458",content_is_required:"\u5185\u5BB9\u4E0D\u80FD\u4E3A\u7A7A",nickname_is_required:"\u6635\u79F0\u4E0D\u80FD\u4E3A\u7A7A",comment_has_been_sent:"\u8BC4\u8BBA\u5DF2\u53D1\u9001\uFF0C\u7BA1\u7406\u5458\u5BA1\u6838\u901A\u8FC7\u540E\u4F1A\u5C55\u793A"};})();
+
+</script><script type='text/javascript'>
+  (()=>{window.CUSDIS={};var l=e=>{let t=e.dataset.host||"https://cusdis.com",n=e.dataset.iframe||`${t}/js/iframe.umd.js`;return`<!DOCTYPE html>
+<html>
+  <head>
+    <link rel="stylesheet" href="${`${t}/js/style.css`}">
+    <base target="_parent" />
+    <link>
+    <script>
+      window.CUSDIS_LOCALE = ${JSON.stringify(window.CUSDIS_LOCALE)}
+      window.__DATA__ = ${JSON.stringify(e.dataset)}
+    <\/script>
+    <style>
+      :root {
+        color-scheme: light;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script src="${n}" type="module">
+      
+    <\/script>
+  </body>
+</html>`},s;function h(e){return s||(s=document.createElement("iframe"),u(s,e)),s.srcdoc=l(e),s.style.width="100%",s.style.border="0",s}function r(e,t){s&&s.contentWindow.postMessage(JSON.stringify({from:"cusdis",event:e,data:t}))}function u(e,t){let n=window.matchMedia("(prefers-color-scheme: dark)"),o=d=>{try{let i=JSON.parse(d.data);if(i.from==="cusdis")switch(i.event){case"onload":t.dataset.theme==="auto"&&r("setTheme",n.matches?"dark":"light");break;case"resize":e.style.height=i.data+"px";break}}catch{}};window.addEventListener("message",o);function a(d){let i=d.matches;t.dataset.theme==="auto"&&r("setTheme",i?"dark":"light")}return n.addEventListener("change",a),()=>{n.removeEventListener("change",a),window.removeEventListener("message",o)}}function c(e){if(e){e.innerHTML="";let t=h(e);e.appendChild(t)}}window.renderCusdis=c;window.CUSDIS.renderTo=c;window.CUSDIS.setTheme=function(e){r("setTheme",e)};function m(){let e;window.cusdisElementId?e=document.querySelector(`#${window.cusdisElementId}`):document.querySelector("#cusdis_thread")?e=document.querySelector("#cusdis_thread"):document.querySelector("#cusdis")&&(console.warn("id `cusdis` is deprecated. Please use `cusdis_thread` instead"),e=document.querySelector("#cusdis")),window.CUSDIS_PREVENT_INITIAL_RENDER===!0||e&&c(e)}window.CUSDIS.initial=m;m();})();
+
+</script>
+          </div>
+          
+        
+
+        <div class="site-footer">
+  
+  
+</div>
+
+      </div>
+    </div>
+  </article>
+
+  
+
+<script>
+  
+  
+    
+    
+  
+</script>
+
+  
+
+</body>
+
+</html>
