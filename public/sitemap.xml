@@ -83,6 +83,8 @@
     <loc>http://localhost:1313/posts/wordpress%E5%8D%9A%E5%AE%A2%E6%90%AD%E5%BB%BA/</loc>
     <lastmod>2021-08-02T00:00:00+00:00</lastmod>
   </url><url>
+    <loc>http://localhost:1313/about/</loc>
+  </url><url>
     <loc>http://localhost:1313/tags/</loc>
   </url>
 </urlset>

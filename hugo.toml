@@ -31,3 +31,7 @@ name = "Ishland"
 [[params.socials]]
 link = "/projects/"
 name = "Projects"
+
+[[params.socials]]
+link = "/about/"
+name = "About"
