@@ -1,6 +1,6 @@
-baseURL = 'https://ooapex.com/'
+baseURL = 'https://zhengyu.de/'
 languageCode = 'zh-cn'
-title = 'OOAPEX'
+title = 'ZhengYu'
 theme = 'yinyang'
 canonifyURLs = false
 enableRobotsTXT = true
@@ -18,20 +18,12 @@ tabWidth = 2
 
 [params]
   # description abou this website
-  headTitle = "OOAPEX"
+  headTitle = "ZhengYu"
   description = "内观则自知，自治则自明。自明则不争讼，安之若素，如如不动"
   staticPrefix = "https://cdn.jsdelivr.net/gh/ooapex/blog"
   cusdis = true
   cusdisAppId = "03d2d89e-f0de-42be-95de-b6daa304646e"
 
 [[params.author]]
-homepage = "https://ooapex.com/"
-name = "Ishland"
-
-[[params.socials]]
-link = "/projects/"
-name = "Projects"
-
-[[params.socials]]
-link = "/about/"
-name = "About"
+homepage = "https://zhengyu.de/"
+name = "zhengyu"
