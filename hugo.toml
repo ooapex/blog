@@ -23,7 +23,7 @@ tabWidth = 2
   staticPrefix = "https://cdn.jsdelivr.net/gh/ooapex/blog"
   cusdis = true
   cusdisAppId = "03d2d89e-f0de-42be-95de-b6daa304646e"
-  favicon = "/favicon.ico"
+  favicon = "/favicon.png"
 
 [[params.author]]
 homepage = "https://zhengyu.de/"
